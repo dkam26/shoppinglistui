@@ -31,7 +31,7 @@ class Register extends React.Component{
               {
                 const history = createHistory();
                 window.location.reload();
-                history.push('/login');  
+                history.push('/');  
               }else{
                 console.log(response);
               }
