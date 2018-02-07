@@ -5,7 +5,7 @@ import axios from 'axios';
 import createHistory from 'history/createBrowserHistory';
 
 
-class Register extends React.Component{
+export class Register extends React.Component{
     state = {
         username: '',
         email: '',
@@ -42,16 +42,13 @@ class Register extends React.Component{
     }
     render(){
         return(
-        <div>
-            <form method ="POST" >
-                <Input  name="firstname" placeholder="First name" onChange={e =>this.onChange(e)} required/><br/>
-                <Input  name="surname" placeholder="Second name"  onChange={e =>this.onChange(e)}/><br/>
-                <Input  name="username" placeholder="Username" onChange={e =>this.onChange(e)} /><br/>
-                <Input  name="password" placeholder="Password" type="password"  onChange={e =>this.onChange(e)}/><br/>
-                <Input  name="email" placeholder="E-mail" onChange={e =>this.onChange(e)}/><br/>
-                 <Button onClick={()=>this.onSubmit()} type="primary">Signup</Button><br/>
-            </form>
-            
+        <div className ="Appregister">
+                <Input  name="firstname" placeholder="First name" onChange={e =>this.onChange(e)} required  id="xx" /><br/>
+                <Input  name="surname" placeholder="Second name"  onChange={e =>this.onChange(e)}  id="xx" /><br/>
+                <Input  name="username" placeholder="Username" onChange={e =>this.onChange(e)}   id="xx" /><br/>
+                <Input  name="password" placeholder="Password" type="password"  onChange={e =>this.onChange(e)}  id="xx" /><br/>
+                <Input  name="email" placeholder="E-mail" onChange={e =>this.onChange(e)}  id="xx" /><br/>
+                 <Button onClick={()=>this.onSubmit()} type="primary"  id="xx" >Signup</Button><br/>
         </div>);
     }
 };

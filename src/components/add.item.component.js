@@ -9,26 +9,39 @@ class AddItem extends React.Component{
         Quantity: '',
         Amountspent: ''
         }
+    componentDidMount(){
+            if(!localStorage.getItem('token')&& !localStorage.getItem('user')){
+                const  history = createHistory();
+                window.location.reload();
+                history.push('/');
+    
+            }
+        }
     onChange = (e) => {
             this.setState({[e.target.name] : e.target.value,})
         }
     onSubmit =() => {
             // console.log(localStorage.getItem('token'))
-            console.log(this.state.shoppinglist)
+            let shoplst=this.props.match.params.name
             console.log(localStorage.getItem('user'))
-            let additem={product:this.state.item,Quantity:this.state.Quantity,Amountspent:this.state.Amountspent}
-            console.log(shoplist)
-            axios.post('http://127.0.0.1:5000/addshoppinglists/?user='+localStorage.getItem('user'),
-           { newlist:this.state.shoppinglist},
+            console.log(this.state.Quantity)
+            console.log(this.state.item)
+            console.log(this.state.Amountspent)
+       
+            axios.post('http://127.0.0.1:5000/shoppinglist/'+this.props.match.params.name+'/items/',
+           {product:this.state.item,Quantity:this.state.Quantity,Amountspent:this.state.Amountspent },
             {headers: {'x-access-token': localStorage.getItem('token'),
            }}
-            
+           
          )
               .then(function (response) {
                   console.log(response);
-                    const history = createHistory();
-                    window.location.reload();
-                    history.push('/shoppinglists');  
+                  
+                 const history = createHistory();
+                window.location.reload();
+
+                let url = '/items/'+shoplst;
+                 history.push(url);  
               })
               .catch(function (error) {
                 console.log(error);
