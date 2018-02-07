@@ -7,6 +7,14 @@ class Addshoppinglist extends React.Component{
     state = {
         shoppinglist: '',
         }
+    componentDidMount(){
+            if(!localStorage.getItem('token')&& !localStorage.getItem('user')){
+                const  history = createHistory();
+                window.location.reload();
+                history.push('/');
+    
+            }
+        }
     onChange = (e) => {
             this.setState({shoppinglist : e.target.value,})
         }

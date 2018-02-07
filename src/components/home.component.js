@@ -2,9 +2,12 @@ import React from 'react';
 import Button from 'antd/lib/button';
 import { Input } from 'antd';
 import axios from 'axios';
-import createHistory from 'history/createBrowserHistory';
-class Login extends React.Component{
 
+import createHistory from 'history/createBrowserHistory';
+import {NotificationContainer,NotificationManager} from 'react-notifications';
+
+class Login extends React.Component{
+   
     onChange = (e) => {
             this.setState({[e.target.name] : e.target.value,})
         }
@@ -16,14 +19,17 @@ class Login extends React.Component{
                 Password:this.state.password,
               })
               .then( (response) => {
-                console.log(response);
-                const history = createHistory();
-                localStorage.setItem('token', response.data.token);
-                localStorage.setItem('user', response.data.Welcome);
-                window.location.reload();
-                history.push('/shoppinglists'); 
-                console.log(response.data);
                 
+                if(response.data.token){
+                    const  history = createHistory()
+                    localStorage.setItem('token', response.data.token)
+                    localStorage.setItem('user', response.data.Welcome)
+                    window.location.reload()
+                    history.push('/shoppinglists')
+                }if(response.data.message === 'Wrong credentials'){ 
+                    NotificationManager.error(response.data.message )
+                }
+
               })
               .catch((error) => {
                 console.log(error);
@@ -33,19 +39,21 @@ class Login extends React.Component{
     
     render(){
         return(
-        <div>
-            <form method ="POST" action="">
-                <Input  name="username" placeholder="Username" onChange={e =>this.onChange(e)} /><br/>
-                <Input  name="password" placeholder="Password" type="password"  onChange={e =>this.onChange(e)}/><br/>
-                 <Button onClick={()=>this.onSubmit()} type="primary">Login</Button><br/>
-                <a href="/register">signup</a> 
-            </form>
-
+             
+        <div className ="App" >
+        
+                <Input  name="username" placeholder="Username" onChange={e =>this.onChange(e)}  id="xx" /><br/>
+               <Input  name="password" placeholder="Password" type="password"  onChange={e =>this.onChange(e)} id="xx" /><br/>
+                <Button onClick={()=>this.onSubmit()} type="primary" id="xx" >Login</Button><br/>
+                <a href="/register" id="x">signup</a> 
+          
+            <NotificationContainer/>
+           
         </div>);
+      
     }
-    componentDidMount(){
-        console.log('hello')
-    }
+ 
 };
+
 
 export default Login;
