@@ -2,7 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import createHistory from 'history/createBrowserHistory';
 import {NotificationContainer,NotificationManager} from 'react-notifications';
-import { Button, Form, Grid, Header, Message, Segment } from 'semantic-ui-react'
+import { Button, Form, Grid, Header, Image, Message, Segment } from 'semantic-ui-react'
 class Login extends React.Component{
    
     onChange = (e) => {
@@ -10,8 +10,7 @@ class Login extends React.Component{
         }
 
     onSubmit =() => {
-            console.log(localStorage.getItem('user'))
-            console.log(localStorage.getItem('token'))
+            console.log(this.state.username)
             axios.post('http://127.0.0.1:5000/auth/login/', {
                 user:this.state.username,
                 Password:this.state.password,
@@ -37,6 +36,16 @@ class Login extends React.Component{
     
     render(){
         return(
+             
+        // <div className ="App">
+        // <div className ="form">
+        //         <Input  name="username" placeholder="Username" onChange={e =>this.onChange(e)}  style={style} id="xx" /><br/>
+        //        <Input  name="password" placeholder="Password" type="password"  onChange={e =>this.onChange(e)} style={style} /><br/>
+        //         <Button onClick={()=>this.onSubmit()} type="primary">Login</Button><br/>
+        //         <a href="/register">signup</a> 
+        // </div>
+        //     <NotificationContainer/>
+        // </div>
         <div className='login-form'>
         <style>{`
       body > div,
@@ -51,7 +60,7 @@ class Login extends React.Component{
           verticalAlign='middle'
         >
           <Grid.Column style={{ maxWidth: 450 }}>
-            <Header as='h2' color='black' textAlign='center'>
+            <Header as='h2' color='teal' textAlign='center'>
             Shoppinglists-App
             </Header>
             <Form size='large'>
@@ -72,15 +81,16 @@ class Login extends React.Component{
                   type='password'
                   name='password'
                   onChange={e =>this.onChange(e)}
-                 />
+                />
     
                 <Button color='blue' fluid size='large' onClick={()=>this.onSubmit()} >Login</Button>
               </Segment>
             </Form>
-         
-         <NotificationContainer className="ui red message"/>
-         
-            <Message >
+            <div>
+         <NotificationContainer/>
+         <div class="ui red message">Red</div>
+         </div>
+            <Message>
               New to us? <a href='/register'>Sign Up</a>
             </Message>
           </Grid.Column>

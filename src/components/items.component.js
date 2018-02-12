@@ -1,7 +1,7 @@
 import React from 'react';
 import axios from 'axios';
-import Button from 'antd/lib/button';
 import createHistory from 'history/createBrowserHistory';
+import { Button,List,Input, Menu ,Container,Segment,Popup} from 'semantic-ui-react';
 class Items extends React.Component{
     constructor() {
         super();
@@ -17,17 +17,19 @@ class Items extends React.Component{
             history.push('/');
 
         }
+        else{
+             this.fetchItems();
+        }
     }
     fetchItems = () => {
         let shoplist = this.props.match.params.name;
         this.setState({shoplist: shoplist});
-        console.log(shoplist);
         axios.get('http://127.0.0.1:5000/shoppinglist/'+shoplist, {
             headers: {'x-access-token': localStorage.getItem('token'),
+            
         }
           })
           .then((response) => {
-            console.log(response.data['Products']);
             this.setState({items: response.data['Products']});
             
           })
@@ -37,6 +39,7 @@ class Items extends React.Component{
       
 }
 editItem =(shoppinglist)=>{
+    
     let itemshoppinglist = this.state.shoplist;
     let amount = shoppinglist.Amountspent;
     let product = shoppinglist.Product;
@@ -45,14 +48,9 @@ editItem =(shoppinglist)=>{
     window.location.reload();
     history.push('/editItem/'+itemshoppinglist+'/'+product+'/'+amount+'/'+quantity);
 }
-DeleteItem =(shoppinglist)=>{ 
-    console.log(shoppinglist);   
+DeleteItem =(shoppinglist)=>{   
     let itemshoppinglist = this.state.shoplist;
     let product = shoppinglist.Product;
-    // const history = createHistory();
-    // window.location.reload();
-    // let url = "/deleteshoppinglist/"+shoppinglist
-    // history.push(url);
     axios.delete('http://127.0.0.1:5000/shoppinglist/'+itemshoppinglist+'/items/'+product,
     {
        headers: {'x-access-token': localStorage.getItem('token'),
@@ -69,38 +67,111 @@ DeleteItem =(shoppinglist)=>{
        console.log(error);
      });  
 }
+getLists =()=>{
+    const  history = createHistory()
+    history.push('/shoppinglists')
+}
+addlists=()=>{
+    const  history = createHistory();
+    window.location.reload();
+    history.push('/shoppinglists');
+}
 addItem =()=>{
     let shoplist = this.props.match.params.name;
-    console.log(shoplist); 
     const history = createHistory();
     window.location.reload();
     let url = "/addItem/"+shoplist;
     history.push(url);
 }
 componentWillMount(){
-    this.fetchItems();
+   
+    
 }
 render(){
-    
-    
+   
     return(
         
         <div>
-            {
-            this.state.items.length
-               ?(<ul>
-                    {this.state.items.map((listValue,index) => {
-                        console.log(listValue)
-                        return <li key={index}>{listValue.Product}:{listValue.Amountspent}:{listValue.Quantity}<Button onClick={()=>this.editItem(listValue)} type="primary">Edit Item</Button><Button onClick={()=>this.DeleteItem(listValue)} type="primary">Delete Item</Button> </li>
-                    
-                    })}
-                </ul>)
-                :null
-            }
-             <ul>
-                <li><Button onClick={()=>this.addItem()} type="primary">Add Item</Button></li>
-            </ul> 
-        </div>
+        <Container>
+                    <Segment>
+                        <Menu secondary style={{backgroundColor:"black"}}>
+                            <Menu.Item name='SHOPPINGLIST' style={{color:"white"}} onClick={this.handleItemClick} />
+                            <Menu.Menu position='right'>
+                                <Menu.Item name='logout' style={{color:"white"}} onClick={this.handleItemClick} />
+                            </Menu.Menu>
+                        </Menu>
+                    </Segment>
+                    <Segment>
+                        <Menu secondary >
+                                    <Menu.Menu >
+                                        <Menu.Item>
+                                        <Popup
+                                            trigger={<Button icon='add' onClick={()=>this.addItem()} />}
+                                            content='Add item'
+
+                                        />
+                                        </Menu.Item>
+                                    </Menu.Menu>
+                                    <Menu.Menu  >
+                                        <Menu.Item >
+                                        <h3 style={{marginLeft:"308px"}}>Items in {this.props.match.params.name} list</h3>
+                                        </Menu.Item>
+                                    </Menu.Menu>
+                                    <Menu.Menu position='right'>
+                                    <Menu.Item>
+                                        <Input icon='search' placeholder='Search by name...' />
+                                        </Menu.Item> 
+                                    
+                                    </Menu.Menu>
+                        </Menu>
+                       
+                    </Segment>
+                    <Segment>
+                    <Menu secondary >
+                                        <Menu.Menu position='right'>
+                                        <Menu.Item>
+                                           <Button labelPosition='left' icon='left chevron' content='Back'  onClick={()=>this.getLists()} />
+                                        </Menu.Item> 
+                                        
+                                        </Menu.Menu>
+                        </Menu>
+                    </Segment>
+                    { this.state.items.length
+                     ? (
+            
+                <Segment>                        
+                    { this.state.items.map((listValue,index) => {     
+                       return <Segment key={index}>
+                       
+                                <List divided verticalAlign='middle' key={index}>
+                                    <List.Item>
+                                        <List.Content  floated ='left'>
+                                       Item: {listValue.Product}
+                                       </List.Content>
+                                            <List.Content floated ='left'>
+                                                Price:{listValue.Amountspent}
+                                                </List.Content>
+                                            <List.Content floated ='left'>
+                                            Quantity:  {listValue.Quantity}
+                                            </List.Content>
+                                            <List.Content floated='right'>
+                                                <Button onClick={()=>this.DeleteItem(listValue)}>Delete</Button>
+                                            </List.Content>
+                                            <List.Content floated='right'>
+                                                <Button onClick={()=>this.editItem(listValue)}>EditItem</Button>
+                                            </List.Content>
+                                    </List.Item> 
+                                </List>
+                            </Segment>
+                })}
+                </Segment>
+           
+        )
+        :<p>No items currently</p>
+    }   
+
+       </Container>
+    </div>
     );
 }
 }

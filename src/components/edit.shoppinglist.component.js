@@ -1,8 +1,7 @@
 import React from 'react';
-import { Input  } from 'antd';
-import Button from 'antd/lib/button';
 import axios from 'axios';
 import createHistory from 'history/createBrowserHistory';
+import { Button, Menu ,Container,Segment,Form, Grid} from 'semantic-ui-react';
 class Editshoppinglist extends React.Component{
     constructor() {
         super();
@@ -16,7 +15,12 @@ class Editshoppinglist extends React.Component{
         this.setState({shoppinglist: shoplist});
     }
     onChange = (e) => {
-        this.setState({[e.target.name] : e.target.value,})
+        if(e.target.value){
+            this.setState({[e.target.name] : e.target.value,})
+        }else{
+            this.setState({[e.target.name] : this.state.shoppinglist})
+        }
+        
     }
     onSubmit =() => {
         
@@ -46,19 +50,77 @@ class Editshoppinglist extends React.Component{
 
         }
     }
+    getLists=()=>{
+        const  history = createHistory();
+        window.location.reload();
+        history.push('/shoppinglists');
+    }
+
     componentWillMount(){
         this.getshoppinglist();
      }
     render(){
         return(
-            <div>
-            
-               To edit {this.state.shoppinglist} shopping-list
-              
-               <form method ="POST" >
-               <Input  name="newName" placeholder="New title" onChange={e =>this.onChange(e)} required/><br/>
-                 <Button onClick={()=>this.onSubmit()} type="primary">Rename</Button><br/>
-            </form>
+                  
+        <div>
+        <Container>
+                    <Segment>
+                        <Menu secondary style={{backgroundColor:"black"}}>
+                            <Menu.Item name='SHOPPINGLIST' style={{color:"white"}} onClick={this.handleItemClick} />
+                            <Menu.Menu position='right'>
+                                <Menu.Item name='logout' style={{color:"white"}} onClick={this.handleItemClick} />
+                            </Menu.Menu>
+                        </Menu>
+                    </Segment>
+                    <Segment>
+                        <Menu secondary >
+                                    <Menu.Menu >
+                                       
+                                        <Menu.Menu position='right'>
+                                        <Menu.Item>
+                                           <Button labelPosition='left' icon='left chevron' content='Back'  onClick={()=>this.getLists()} />
+                                        </Menu.Item> 
+                                        </Menu.Menu>
+                                    </Menu.Menu>
+                                    <Menu.Menu  >
+                                        <Menu.Item >
+                                        <h3 style={{marginLeft:"308px"}}>Edit  {this.props.match.params.name} list</h3>
+                                        </Menu.Item>
+                                    </Menu.Menu>
+                                   
+                        </Menu>
+                       
+                    </Segment>
+                    <div className='login-form'>
+        <style>{`
+      body > div,
+      body > div > div,
+      body > div > div > div.login-form {
+        height: 100%;
+      }
+    `}</style>
+        <Grid
+          textAlign='center'
+          style={{ height: '100%' }}
+          verticalAlign='middle'
+        >
+          <Grid.Column style={{ maxWidth: 450 }}>
+            <Form size='large'>
+              <Segment stacked>
+              <Form.Input
+                  fluid
+                name='newName'
+                  placeholder={this.state.shoppinglist}
+                  onChange={e =>this.onChange(e)}
+                />
+                <Button color='blue' fluid size='large' onClick={()=>this.onSubmit()} >Rename shoppinglist</Button>
+              </Segment>
+            </Form>
+  
+          </Grid.Column>
+        </Grid>
+        </div>
+                </Container>
             </div>
         );
     }

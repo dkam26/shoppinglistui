@@ -1,23 +1,26 @@
 import React from 'react';
-import Button from 'antd/lib/button';
-import { Input  } from 'antd';
 import axios from 'axios';
 import createHistory from 'history/createBrowserHistory';
-
-
+import { Button, Form, Grid, Header, Segment } from 'semantic-ui-react'
 export class Register extends React.Component{
-    state = {
+    constructor() {
+        super();
+    this.state = {
         username: '',
         email: '',
         password: '',
         surname: '',
         firstname: ''
         }
-    onChange = (e) => {
+        this.onChange=this.onChange.bind(this)
+        this.onSubmit=this.onSubmit.bind(this)
+
+    }
+    onChange (e) {
         this.setState({[e.target.name] : e.target.value,})
     }
 
-    onSubmit =() => {
+    onSubmit () {
         
         axios.post('http://127.0.0.1:5000/auth/register/', {
             Firstname: this.state.firstname,
@@ -41,15 +44,75 @@ export class Register extends React.Component{
           });
     }
     render(){
-        return(
-        <div className ="Appregister">
-                <Input  name="firstname" placeholder="First name" onChange={e =>this.onChange(e)} required  id="xx" /><br/>
-                <Input  name="surname" placeholder="Second name"  onChange={e =>this.onChange(e)}  id="xx" /><br/>
-                <Input  name="username" placeholder="Username" onChange={e =>this.onChange(e)}   id="xx" /><br/>
-                <Input  name="password" placeholder="Password" type="password"  onChange={e =>this.onChange(e)}  id="xx" /><br/>
-                <Input  name="email" placeholder="E-mail" onChange={e =>this.onChange(e)}  id="xx" /><br/>
-                 <Button onClick={()=>this.onSubmit()} type="primary"  id="xx" >Signup</Button><br/>
-        </div>);
+        return(    
+    <div className='login-form'>
+        <style>{`
+      body > div,
+      body > div > div,
+      body > div > div > div.login-form {
+        height: 100%;
+      }
+    `}</style>
+        <Grid
+          textAlign='center'
+          style={{ height: '100%' }}
+          verticalAlign='middle'
+        >
+          <Grid.Column style={{ maxWidth: 450 }}>
+            <Header as='h2' color='teal' textAlign='center'>
+            Register
+            </Header>
+            <Form size='large'>
+              <Segment stacked>
+              <Form.Input
+                  fluid
+                  name='surname'
+                  icon='user'
+                  iconPosition='left'
+                  placeholder='Surname'
+                  onChange={e =>this.onChange(e)}
+                />
+                <Form.Input
+                  fluid
+                  name='firstname'
+                  icon='user'
+                  iconPosition='left'
+                  placeholder='First name'
+                  onChange={e =>this.onChange(e)}
+                />
+                <Form.Input
+                  fluid
+                  name='username'
+                  icon='user'
+                  iconPosition='left'
+                  placeholder='Username'
+                  onChange={e =>this.onChange(e)}
+                />
+                <Form.Input
+                  fluid
+                  icon='lock'
+                  iconPosition='left'
+                  placeholder='Password'
+                  type='password'
+                  name='password'
+                  onChange={e =>this.onChange(e)}
+                 />
+                <Form.Input
+                  fluid
+                  name='email'
+                  icon='user'
+                  iconPosition='left'
+                  placeholder='Email'
+                  onChange={e =>this.onChange(e)}
+                />
+                <Button color='blue' fluid size='large' onClick={()=>this.onSubmit()} >Create Account</Button>
+              </Segment>
+            </Form>
+  
+          </Grid.Column>
+        </Grid>
+        </div>
+    );
     }
 };
 
