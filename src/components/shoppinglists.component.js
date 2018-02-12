@@ -1,10 +1,7 @@
 import React from 'react';
 import axios from 'axios';
-import Button from 'antd/lib/button';
 import createHistory from 'history/createBrowserHistory';
-import {NotificationContainer,NotificationManager} from 'react-notifications';
-import logo from '../static/Login.jpg';
-
+import { Button,List,Input, Menu ,Container,Segment,Popup} from 'semantic-ui-react';
 class Shoppinglists extends React.Component{
     constructor() {
         super();
@@ -23,18 +20,19 @@ class Shoppinglists extends React.Component{
                 console.log(response.data);
                 console.log(localStorage.getItem('user'));
                 this.setState({shoppinglists: response.data['lists']});
+                
               })
               .catch(function (error) {
                 console.log(error);
               }); 
     }
     componentDidMount(){
-        if(!localStorage.getItem('token')&& !localStorage.getItem('user')){
-            const  history = createHistory();
-            window.location.reload();
-            history.push('/');
+         if(!localStorage.getItem('token')&& !localStorage.getItem('user')){
+         const  history = createHistory();
+        history.push('/');
 
         }
+    
     }
     editList =(shoppinglist)=>{
         const history = createHistory();
@@ -60,7 +58,8 @@ class Shoppinglists extends React.Component{
           }); 
         }   
          else {
-            NotificationManager.error('Token')
+            const history = createHistory();
+            history.push('/');
           } 
   
     }
@@ -78,28 +77,83 @@ class Shoppinglists extends React.Component{
     }
     componentWillMount(){
         this.fetchList();
+       
     }
 
     render(){
+        
         return(
-            <div className="shoppinglists">
-                <img src={logo}/><br/>
-                {
-                    this.state.shoppinglists.length
-               ?(
-                   
-                <ul>
-                    {this.state.shoppinglists.map((listValue,index) => {
-                        return <li key={index}>{listValue}<Button onClick={()=>this.getItems(listValue)} type="primary">Contents</Button><Button onClick={()=>this.editList(listValue)} type="primary">Edit list</Button><Button onClick={()=>this.DeleteList(listValue)} type="primary">Delete list</Button> </li>
-                    })}
-                </ul>)
-                :null}
-                <ul>
-                    <li><Button onClick={()=>this.addList()} type="primary">Add list</Button></li>
-                </ul>
-                <NotificationContainer/>
+        <div >
+           
+        <Container>
+            <Segment>
+                <Menu secondary style={{backgroundColor:"black"}}>
+                    <Menu.Item name='SHOPPINGLIST' style={{color:"white"}} onClick={this.handleItemClick} />
+                    <Menu.Menu position='right'>
+                        <Menu.Item name='logout' style={{color:"white"}} onClick={this.handleItemClick} />
+                    </Menu.Menu>
+                </Menu>
+             </Segment>
+            <Segment>
+                    <Menu secondary >
+                                <Menu.Menu >
+                                    <Menu.Item>
+                                    <Popup
+                                        trigger={<Button icon='add' onClick={()=>this.addList()} />}
+                                         content='Add shoppinglist'
+
+                                    />
+                                    </Menu.Item>
+                                </Menu.Menu>
+                                <Menu.Menu  >
+                                    <Menu.Item >
+                                    <h3 style={{marginLeft:"308px"}}>Your Shoppinglists</h3>
+                                    </Menu.Item>
+                                </Menu.Menu>
+                                <Menu.Menu position='right'>
+                                <Menu.Item>
+                                    <Input icon='search' placeholder='Search by name...' />
+                                    </Menu.Item> 
+                                
+                                </Menu.Menu>
+                    </Menu>
+        
+                </Segment>
+        {
+            
+            this.state.shoppinglists.length
+            ?(
                 
-            </div>
+                    <Segment>                        
+                        { this.state.shoppinglists.map((listValue,index) => {     
+                                        
+                           return <Segment key={index}>
+                                    <List divided verticalAlign='middle' key={index}>
+                                            <List.Item>
+                                            <List.Content floated='right'>
+                                                <Button onClick={()=>this.DeleteList(listValue)}>Delete</Button>
+                                            </List.Content>
+                                            <List.Content floated='right'>
+                                                <Button onClick={()=>this.editList(listValue)}>Editlist</Button>
+                                            </List.Content>
+                                            <List.Content floated='right'>
+                                                <Button onClick={()=>this.getItems(listValue)}>Content</Button>
+                                            </List.Content>
+                                            <List.Content>
+                                            {listValue}
+                                            </List.Content>
+                                            </List.Item> 
+                                    </List>
+                                </Segment>
+                    })}
+                    </Segment>
+               
+            )
+            :<p>No lists</p>
+        }
+    </Container>
+        </div>
+       
         );
     }
    

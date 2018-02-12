@@ -1,8 +1,7 @@
 import React from 'react';
-import { Input  } from 'antd';
-import Button from 'antd/lib/button';
 import axios from 'axios';
 import createHistory from 'history/createBrowserHistory';
+import { Button, Menu ,Container,Segment,Form, Grid} from 'semantic-ui-react';
 class EditItem extends React.Component{
     constructor() {
         super();
@@ -22,20 +21,30 @@ class EditItem extends React.Component{
         }
     }
     getItem =()=>{
-        let item = this.props.match.params.product;
-        let shoplist = this.props.match.params.itemshoppinglist;
-        this.setState({product: item});
-        this.setState({shoplist: shoplist});
+        this.setState({product: this.props.match.params.product});
+        this.setState({shoplist: this.props.match.params.itemshoppinglist});
+        this.setState({newamount:this.props.match.params.amount,})
+        this.setState({newquantity:this.props.match.params.quantity,})
         console.log(this.state.shoplist)
     }
     onChange = (e) => {
-        this.setState({[e.target.name] : e.target.value,})
+        if(e.target.value)
+        {
+            this.setState({[e.target.name] : e.target.value,})
+        }
+        
+    }
+    getLists=(shoppinglist)=>{
+        const history = createHistory();
+        window.location.reload();
+        let url = "/items/"+shoppinglist
+        history.push(url);
     }
     componentWillMount(){
         this.getItem();
      }
      onSubmit =() => {
-        
+        console.log(this.state.newamount)
         axios.put('http://127.0.0.1:5000/shoppinglist/'+this.state.shoplist+'/items/'+this.state.product,
         { Quantity:this.state.newquantity,AmountSpent:this.state.newamount}, {
             headers: {'x-access-token': localStorage.getItem('token'),
@@ -57,14 +66,71 @@ class EditItem extends React.Component{
     render(){
         return(
             <div>
-               editItem
-               <form method ="POST" >
-               <Input  name="newamount" placeholder="New Amount" onChange={e =>this.onChange(e)} required/><br/>
-               <Input  name="newquantity" placeholder="New Quantity" onChange={e =>this.onChange(e)} required/><br/>
-                 <Button onClick={()=>this.onSubmit()} type="primary">Change Info</Button><br/>
-            </form>
-               
+            <Container>
+                        <Segment>
+                            <Menu secondary style={{backgroundColor:"black"}}>
+                                <Menu.Item name='SHOPPINGLIST' style={{color:"white"}} onClick={this.handleItemClick} />
+                                <Menu.Menu position='right'>
+                                    <Menu.Item name='logout' style={{color:"white"}} onClick={this.handleItemClick} />
+                                </Menu.Menu>
+                            </Menu>
+                        </Segment>
+                        <Segment>
+                            <Menu secondary >
+                                        <Menu.Menu >
+                                           
+                                            <Menu.Menu position='right'>
+                                            <Menu.Item>
+                                               <Button labelPosition='left' icon='left chevron' content='Back'  onClick={()=>this.getLists(this.state.shoplist)} />
+                                            </Menu.Item> 
+                                            </Menu.Menu>
+                                        </Menu.Menu>
+                                        <Menu.Menu  >
+                                            <Menu.Item >
+                                            <h3 style={{marginLeft:"308px"}}>Edit  {this.props.match.params.product} item</h3>
+                                            </Menu.Item>
+                                        </Menu.Menu>
+                                       
+                            </Menu>
+                           
+                        </Segment>
+                        <div className='login-form'>
+            <style>{`
+          body > div,
+          body > div > div,
+          body > div > div > div.login-form {
+            height: 100%;
+          }
+        `}</style>
+            <Grid
+              textAlign='center'
+              style={{ height: '100%' }}
+              verticalAlign='middle'
+            >
+              <Grid.Column style={{ maxWidth: 450 }}>
+                <Form size='large'>
+                  <Segment stacked>
+                Quantity: <Form.Input
+                      fluid
+                    name='newquantity'
+                      placeholder={this.props.match.params.quantity}
+                      onChange={e =>this.onChange(e)}
+                    />
+                     Amount:<Form.Input
+                      fluid
+                    name='newamount'
+                      placeholder={this.props.match.params.amount}
+                      onChange={e =>this.onChange(e)}
+                    />
+                    <Button color='blue' fluid size='large' onClick={()=>this.onSubmit()} >Edit Item</Button>
+                  </Segment>
+                </Form>
+      
+              </Grid.Column>
+            </Grid>
             </div>
+                    </Container>
+                </div>
         );
     }
 }
