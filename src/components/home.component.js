@@ -22,7 +22,8 @@ class Login extends React.Component{
                     const  history = createHistory()
                     localStorage.setItem('token', response.data.token)
                     localStorage.setItem('user', response.data.Welcome)
-                    window.location.reload()
+                    console.log(localStorage.getItem('user'))
+                    window.location.reload();
                     history.push('/shoppinglists')
                 }if(response.data.message === 'Wrong credentials'){ 
                     NotificationManager.error(response.data.message )

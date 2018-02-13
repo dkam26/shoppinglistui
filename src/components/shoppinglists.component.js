@@ -1,24 +1,46 @@
 import React from 'react';
 import axios from 'axios';
 import createHistory from 'history/createBrowserHistory';
-import { Button,List,Input, Menu ,Container,Segment,Popup} from 'semantic-ui-react';
+import { Pagination,Button,List, Menu ,Container,Segment,Popup,Input} from 'semantic-ui-react';
 class Shoppinglists extends React.Component{
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
-            shoppinglists:[]
-        }
+            shoppinglists:[],
+            word:'',
+            activePage: 1
+        };
+        
     }
 
+    handlePaginationChange = (e, { activePage }) => {
+        this.fetchList();
+        this.setState({ activePage } )}
+    onChange = (e) => {
+        e.preventDefault();
+        this.setState({ word : e.target.value,}) 
+    }
+    handleKeyup = (e)=>{
+        e.preventDefault();
+        if(this.state.word){
+        axios.get('http://127.0.0.1:5000/search/?q='+this.state.word,
+            {headers: {'x-access-token': localStorage.getItem('token'),
+        }}  
+        ).then( (response)=> {
+        this.setState({shoppinglists: response.data['Message']}); 
+            })
+            .catch(function (error) {
+                console.log(error);
+            })
+        }
+    }
     fetchList = () => {
-       
-            axios.get('http://127.0.0.1:5000/shoppinglists/?user='+localStorage.getItem('user'), {
+            console.log(this.state.activePage)
+            axios.get('http://127.0.0.1:5000/shoppinglists/?user='+localStorage.getItem('user')+'&page_number='+this.state.activePage, {
                 headers: {'x-access-token': localStorage.getItem('token'),
             }
               })
               .then((response) => {
-                console.log(response.data);
-                console.log(localStorage.getItem('user'));
                 this.setState({shoppinglists: response.data['lists']});
                 
               })
@@ -29,10 +51,12 @@ class Shoppinglists extends React.Component{
     componentDidMount(){
          if(!localStorage.getItem('token')&& !localStorage.getItem('user')){
          const  history = createHistory();
+         window.location.reload();
         history.push('/');
 
         }
     
+   
     }
     editList =(shoppinglist)=>{
         const history = createHistory();
@@ -59,6 +83,7 @@ class Shoppinglists extends React.Component{
         }   
          else {
             const history = createHistory();
+            window.location.reload();
             history.push('/');
           } 
   
@@ -75,22 +100,23 @@ class Shoppinglists extends React.Component{
         let url = "/items/"+shoppinglist
         history.push(url);
     }
+ 
     componentWillMount(){
         this.fetchList();
        
-    }
-
+            }
     render(){
-        
+        const { activePage } = this.state
+       
         return(
         <div >
            
         <Container>
             <Segment>
                 <Menu secondary style={{backgroundColor:"black"}}>
-                    <Menu.Item name='SHOPPINGLIST' style={{color:"white"}} onClick={this.handleItemClick} />
+                    <Menu.Item name='SHOPPINGLIST' style={{color:"white"}}/>
                     <Menu.Menu position='right'>
-                        <Menu.Item name='logout' style={{color:"white"}} onClick={this.handleItemClick} />
+                       
                     </Menu.Menu>
                 </Menu>
              </Segment>
@@ -112,7 +138,7 @@ class Shoppinglists extends React.Component{
                                 </Menu.Menu>
                                 <Menu.Menu position='right'>
                                 <Menu.Item>
-                                    <Input icon='search' placeholder='Search by name...' />
+                                <Input name="word" icon='search' placeholder='Search by name...' onChange={this.onChange} onKeyUp={this.handleKeyup}/>
                                     </Menu.Item> 
                                 
                                 </Menu.Menu>
@@ -144,8 +170,11 @@ class Shoppinglists extends React.Component{
                                             </List.Content>
                                             </List.Item> 
                                     </List>
+                                    
                                 </Segment>
+                                
                     })}
+                    <Pagination activePage={activePage} onPageChange={this.handlePaginationChange} totalPages={50} style={{marginLeft:'318px'}}/>
                     </Segment>
                
             )

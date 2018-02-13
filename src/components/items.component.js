@@ -1,14 +1,36 @@
 import React from 'react';
 import axios from 'axios';
 import createHistory from 'history/createBrowserHistory';
-import { Button,List,Input, Menu ,Container,Segment,Popup} from 'semantic-ui-react';
+import { Pagination,Button,List,Input, Menu ,Container,Segment,Popup} from 'semantic-ui-react';
 class Items extends React.Component{
     constructor() {
         super();
         this.state = {
             items:[],
-            shoplist:''
+            shoplist:'',
+            word:'',
+            activePage: 1
         }
+    }
+    handlePaginationChange = (e, { activePage }) => {
+        this.fetchItems();
+        this.setState({ activePage } )}
+    onChange = (e) => {
+        this.setState({ word : e.target.value,}) 
+    }   
+    handleKeyup = (e)=>{
+            if(this.state.word){
+            axios.get('http://127.0.0.1:5000/searchProduct/?q='+this.state.word,
+                {headers: {'x-access-token': localStorage.getItem('token'),
+            }}  
+            ).then( (response)=> {
+                console.log(response.data['Searched product'])
+                this.setState({items: response.data['Searched product']});
+                })
+                .catch(function (error) {
+                    console.log(error);
+                })
+            }
     }
     componentDidMount(){
         if(!localStorage.getItem('token')&& !localStorage.getItem('user')){
@@ -24,7 +46,8 @@ class Items extends React.Component{
     fetchItems = () => {
         let shoplist = this.props.match.params.name;
         this.setState({shoplist: shoplist});
-        axios.get('http://127.0.0.1:5000/shoppinglist/'+shoplist, {
+        console.log(this.state.activePage)
+        axios.get('http://127.0.0.1:5000/shoppinglist/'+shoplist+'?page_number='+this.state.activePage, {
             headers: {'x-access-token': localStorage.getItem('token'),
             
         }
@@ -69,6 +92,7 @@ DeleteItem =(shoppinglist)=>{
 }
 getLists =()=>{
     const  history = createHistory()
+    window.location.reload();
     history.push('/shoppinglists')
 }
 addlists=()=>{
@@ -83,12 +107,12 @@ addItem =()=>{
     let url = "/addItem/"+shoplist;
     history.push(url);
 }
-componentWillMount(){
-   
+// componentWillMount(){
+//     this.fetchList();
     
-}
+// }
 render(){
-   
+    const { activePage } = this.state
     return(
         
         <div>
@@ -119,7 +143,7 @@ render(){
                                     </Menu.Menu>
                                     <Menu.Menu position='right'>
                                     <Menu.Item>
-                                        <Input icon='search' placeholder='Search by name...' />
+                                    <Input name="word" icon='search' placeholder='Search by name...' onChange={this.onChange} onKeyUp={this.handleKeyup}/>
                                         </Menu.Item> 
                                     
                                     </Menu.Menu>
@@ -164,6 +188,7 @@ render(){
                                 </List>
                             </Segment>
                 })}
+                 <Pagination activePage={activePage} onPageChange={this.handlePaginationChange} totalPages={50} style={{marginLeft:'318px'}}/>
                 </Segment>
            
         )

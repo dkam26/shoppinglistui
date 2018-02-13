@@ -38,10 +38,8 @@ class AddItem extends React.Component{
          )
               .then(function (response) {
                   console.log(response);
-                  
                  const history = createHistory();
                 window.location.reload();
-
                 let url = '/items/'+shoplst;
                  history.push(url);  
               })

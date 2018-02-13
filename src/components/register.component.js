@@ -1,7 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import createHistory from 'history/createBrowserHistory';
-import { Button, Form, Grid, Header, Segment } from 'semantic-ui-react'
+import { Icon,Button, Form, Grid, Header, Segment } from 'semantic-ui-react'
 export class Register extends React.Component{
     constructor() {
         super();
@@ -16,11 +16,15 @@ export class Register extends React.Component{
         this.onSubmit=this.onSubmit.bind(this)
 
     }
-    onChange (e) {
+    onChange =(e)=> {
         this.setState({[e.target.name] : e.target.value,})
     }
-
-    onSubmit () {
+    home=()=>{
+      const  history = createHistory();
+      window.location.reload();
+      history.push('/');
+    }
+    onSubmit = () => {
         
         axios.post('http://127.0.0.1:5000/auth/register/', {
             Firstname: this.state.firstname,
@@ -106,6 +110,10 @@ export class Register extends React.Component{
                   onChange={e =>this.onChange(e)}
                 />
                 <Button color='blue' fluid size='large' onClick={()=>this.onSubmit()} >Create Account</Button>
+                <div style={{padding:"17px"}}>
+                <Icon name="arrow circle outline left" size="large" onClick={()=>this.home()}/>Back
+                </div>
+                {/* <Button labelPosition='left' icon='left chevron' content='Back'  onClick={()=>this.home()} /> */}
               </Segment>
             </Form>
   

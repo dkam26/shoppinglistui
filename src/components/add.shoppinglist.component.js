@@ -16,6 +16,7 @@ class Addshoppinglist extends React.Component{
         }
     getLists =()=>{
             const  history = createHistory()
+            window.location.reload();
             history.push('/shoppinglists')
         }
     onChange = (e) => {
