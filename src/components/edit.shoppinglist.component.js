@@ -11,6 +11,7 @@ class Editshoppinglist extends React.Component{
             newName:'',
         }
     }
+    //Sets the state of the shoppinglist
     getshoppinglist =()=>{
         this.setState({shoppinglist: this.props.match.params.name});
     }
@@ -22,6 +23,7 @@ class Editshoppinglist extends React.Component{
         }
         
     }
+    //Enables the editing of a shoppinglist name
     onSubmit =() => {
         axios.put(URL+'shoppinglists/'+this.state.shoppinglist,
         { newName:this.state.newName}, 
@@ -48,19 +50,21 @@ class Editshoppinglist extends React.Component{
       
         
     }
+    //Function called before component is rendered.It verifies if user is login
     componentDidMount(){
         if(!localStorage.getItem('token')&& !localStorage.getItem('user')){
             history.push('/');
 
+        }else{
+            this.getshoppinglist();
         }
     }
+    //Returns user to shoppinglists page
     getLists=()=>{
         history.push('/shoppinglists');
     }
 
-    componentWillMount(){
-        this.getshoppinglist();
-     }
+
     render(){
         return(
                   

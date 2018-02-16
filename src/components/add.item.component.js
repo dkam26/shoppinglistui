@@ -12,6 +12,7 @@ class AddItem extends React.Component{
         }
     
     }
+    //Function called before component is rendered.It verifies if user is login
     componentDidMount(){
             if(!localStorage.getItem('token')&& !localStorage.getItem('user')){
                 history.push('/');
@@ -21,9 +22,11 @@ class AddItem extends React.Component{
     onChange = (e) => {
             this.setState({[e.target.name] : e.target.value,})
         }
+         //Returns user to the shoppinglist page
     getLists =()=>{
         history.push('/shoppinglists')
     }
+//Function enables user to add a shoppinglist
     onSubmit =() => {
             let shoplst=this.props.match.params.name   
             axios.post(URL+'shoppinglist/'

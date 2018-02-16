@@ -13,12 +13,15 @@ class Items extends React.Component{
             totalPages:1,
         }
     }
+     //implementation of pagination
     handlePaginationChange = (e, { activePage }) => {
         this.fetchItems();
         this.setState({ activePage } )}
+     //Function to get inputs from the form and set the state
     onChange = (e) => {
         this.setState({ word : e.target.value,}) 
-    }   
+    }  
+     //Function ensures auto search 
     handleKeyup = (e)=>{
             if(this.state.word){
             axios.get(URL+'searchProduct/?q='+this.state.word,
@@ -33,6 +36,7 @@ class Items extends React.Component{
                 })
             }
     }
+    //Function called before component is rendered.It verifies if user is login
     componentDidMount(){
         if(!localStorage.getItem('token')&& !localStorage.getItem('user')){
             history.push('/');
@@ -42,6 +46,7 @@ class Items extends React.Component{
              this.fetchItems();
         }
     }
+      //Function queries items for a given shoppinglist
     fetchItems = () => {
         let shoplist = this.props.match.params.name;
         this.setState({shoplist: shoplist});
@@ -61,12 +66,14 @@ class Items extends React.Component{
           });              
       
 }
+//Function redirects user to edit shoopinglist item
 editItem =(shoppinglist)=>{
     history.push('/editItem/'+this.state.shoplist+
                 '/'+shoppinglist.Product+
                 '/'+shoppinglist.Amountspent+
                 '/'+shoppinglist.Quantity);
 }
+ //Function enables deleting a shoppinglist item
 DeleteItem =(shoppinglist)=>{   
     axios.delete(URL+'shoppinglist/'
                 +this.state.shoplist+
@@ -84,12 +91,11 @@ DeleteItem =(shoppinglist)=>{
        console.log(error);
      });  
 }
+//Returns user to shoppinglists page
 getLists =()=>{
     history.push('/shoppinglists')
 }
-addlists=()=>{
-    history.push('/shoppinglists');
-}
+//Enables user to add items
 addItem =()=>{
     let url = "/addItem/"+this.props.match.params.name;
     history.push(url);

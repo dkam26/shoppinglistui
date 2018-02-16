@@ -7,18 +7,21 @@ class Addshoppinglist extends React.Component{
     state = {
         shoppinglist: '',
         }
+    //Function called before component is rendered.It verifies if user is login
     componentDidMount(){
             if(!localStorage.getItem('token')&& !localStorage.getItem('user')){
                 history.push('/');
     
             }
         }
+    //Returns user to the shoppinglist page
     getLists =()=>{
             history.push('/shoppinglists')
         }
     onChange = (e) => {
             this.setState({shoppinglist : e.target.value,})
         }
+    //Function enables user to add a shoppinglist
     onSubmit =() => {
             axios.post(URL+'addshoppinglists/?user='+localStorage.getItem('user'),
            { newlist:this.state.shoppinglist},

@@ -13,12 +13,16 @@ class EditItem extends React.Component{
             newquantity:'',
         }
     }
+     //Function called before component is rendered.It verifies if user is login
     componentDidMount(){
         if(!localStorage.getItem('token')&& !localStorage.getItem('user')){
             history.push('/');
 
+        }else{
+            this.getItem();
         }
     }
+     //Sets the state of the product,newamount,newquantity
     getItem =()=>{
         this.setState({
             product: this.props.match.params.product,
@@ -35,13 +39,12 @@ class EditItem extends React.Component{
         }
         
     }
+    //Returns user to the items page
     getLists=(shoppinglist)=>{
         let url = "/items/"+shoppinglist
         history.push(url);
     }
-    componentWillMount(){
-        this.getItem();
-     }
+     //Enables the editing of a item name
      onSubmit =() => {
         axios.put(URL+'shoppinglist/'+this.state.shoplist+'/items/'+this.state.product,
         { Quantity:this.state.newquantity,AmountSpent:this.state.newamount}, {

@@ -13,14 +13,16 @@ class Shoppinglists extends React.Component{
         };
         
     }
-
+    //implementation of pagination
     handlePaginationChange = (e, { activePage }) => {
         this.fetchList();
         this.setState({ activePage } )}
+     //Function to get inputs from the form and set the state
     onChange = (e) => {
         e.preventDefault();
         this.setState({ word : e.target.value,}) 
     }
+    //Function ensures auto search
     handleKeyup = (e)=>{
         e.preventDefault();
         if(this.state.word){
@@ -35,8 +37,10 @@ class Shoppinglists extends React.Component{
             })
         }
     }
+    //Function queries shoopinglists for a given user
     fetchList = () => {
-            axios.get(URL+'shoppinglists/?user='+localStorage.getItem('user')+'&page_number='+this.state.activePage, {
+            axios.get(URL+'shoppinglists/?user='+
+            localStorage.getItem('user')+'&page_number='+this.state.activePage, {
                 headers: {'x-access-token': localStorage.getItem('token'),
             }
               })
@@ -49,17 +53,22 @@ class Shoppinglists extends React.Component{
                 console.log(error);
               }); 
     }
+    //Function called before component is rendered.It verifies if user is login
     componentDidMount(){
          if(!localStorage.getItem('token')&& !localStorage.getItem('user')){
         history.push('/');
 
+        }else{
+            this.fetchList();
         }
     
    
     }
+    //Function redirects user to edit shoopinglist name
     editList =(shoppinglist)=>{
         history.push('/editshoppinglist/'+shoppinglist);
     }
+    //Function enables deleting a shoppinglist
     DeleteList =(shoppinglist)=>{ 
         if(localStorage.getItem('token') && localStorage.getItem('user')){
         axios.delete(URL+'shoppinglists/'+shoppinglist+'?user='+localStorage.getItem('user'),
@@ -81,19 +90,17 @@ class Shoppinglists extends React.Component{
           } 
   
     }
+    //Function redirects user to add a new shoopinglist
     addList =()=>{
         let url = "/addshoppinglist/"
         history.push(url);
     }
+    //Function returns the items of a shoppinglist
     getItems =(shoppinglist)=>{
         let url = "/items/"+shoppinglist
         history.push(url);
     }
- 
-    componentWillMount(){
-        this.fetchList();
-       
-            }
+    //Render function
     render(){
         const { activePage } = this.state
        

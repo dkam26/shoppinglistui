@@ -16,12 +16,15 @@ export class Register extends React.Component{
         this.onChange=this.onChange.bind(this)
         this.onSubmit=this.onSubmit.bind(this)
     }
+     //Function to get inputs from the form and set the state
     onChange =(e)=> {
         this.setState({[e.target.name] : e.target.value,})
     }
+    //Function redirects user to the login page
     home=()=>{
       history.push('/');
     }
+    //Function registers user
     onSubmit = () => {
         
         axios.post(URL+'auth/register/', {
