@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from 'axios';
-import createHistory from 'history/createBrowserHistory';
+import {URL,history}  from '../config'
 import { Pagination,Button,List, Menu ,Container,Segment,Popup,Input} from 'semantic-ui-react';
 class Shoppinglists extends React.Component{
     constructor(props) {
@@ -8,7 +8,8 @@ class Shoppinglists extends React.Component{
         this.state = {
             shoppinglists:[],
             word:'',
-            activePage: 1
+            activePage: 1,
+            totalPages:1,
         };
         
     }
@@ -23,7 +24,7 @@ class Shoppinglists extends React.Component{
     handleKeyup = (e)=>{
         e.preventDefault();
         if(this.state.word){
-        axios.get('http://127.0.0.1:5000/search/?q='+this.state.word,
+        axios.get(URL+'search/?q='+this.state.word,
             {headers: {'x-access-token': localStorage.getItem('token'),
         }}  
         ).then( (response)=> {
@@ -35,12 +36,12 @@ class Shoppinglists extends React.Component{
         }
     }
     fetchList = () => {
-            console.log(this.state.activePage)
-            axios.get('http://127.0.0.1:5000/shoppinglists/?user='+localStorage.getItem('user')+'&page_number='+this.state.activePage, {
+            axios.get(URL+'shoppinglists/?user='+localStorage.getItem('user')+'&page_number='+this.state.activePage, {
                 headers: {'x-access-token': localStorage.getItem('token'),
             }
               })
               .then((response) => {
+                this.setState({totalPages:response.data['pages']})
                 this.setState({shoppinglists: response.data['lists']});
                 
               })
@@ -50,8 +51,6 @@ class Shoppinglists extends React.Component{
     }
     componentDidMount(){
          if(!localStorage.getItem('token')&& !localStorage.getItem('user')){
-         const  history = createHistory();
-         window.location.reload();
         history.push('/');
 
         }
@@ -59,20 +58,16 @@ class Shoppinglists extends React.Component{
    
     }
     editList =(shoppinglist)=>{
-        const history = createHistory();
-        window.location.reload();
         history.push('/editshoppinglist/'+shoppinglist);
     }
     DeleteList =(shoppinglist)=>{ 
         if(localStorage.getItem('token') && localStorage.getItem('user')){
-        axios.delete('http://127.0.0.1:5000/shoppinglists/'+shoppinglist+'?user='+localStorage.getItem('user'),
+        axios.delete(URL+'shoppinglists/'+shoppinglist+'?user='+localStorage.getItem('user'),
          {
             headers: {'x-access-token': localStorage.getItem('token'),
         }
           })
           .then((response) => {
-            const history = createHistory();
-            window.location.reload();
             history.push('/shoppinglists'); 
             
             
@@ -82,21 +77,15 @@ class Shoppinglists extends React.Component{
           }); 
         }   
          else {
-            const history = createHistory();
-            window.location.reload();
             history.push('/');
           } 
   
     }
     addList =()=>{
-        const history = createHistory();
-        window.location.reload();
         let url = "/addshoppinglist/"
         history.push(url);
     }
     getItems =(shoppinglist)=>{
-        const history = createHistory();
-        window.location.reload();
         let url = "/items/"+shoppinglist
         history.push(url);
     }
@@ -174,7 +163,7 @@ class Shoppinglists extends React.Component{
                                 </Segment>
                                 
                     })}
-                    <Pagination activePage={activePage} onPageChange={this.handlePaginationChange} totalPages={50} style={{marginLeft:'318px'}}/>
+                    <Pagination activePage={activePage} onPageChange={this.handlePaginationChange} totalPages={this.state.totalPages} style={{marginLeft:'318px'}}/>
                     </Segment>
                
             )

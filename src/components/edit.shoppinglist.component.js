@@ -1,18 +1,18 @@
 import React from 'react';
 import axios from 'axios';
-import createHistory from 'history/createBrowserHistory';
+import {URL,history}  from '../config'
 import { Button, Menu ,Container,Segment,Form, Grid} from 'semantic-ui-react';
+import Notifications, {notify} from 'react-notify-toast';
 class Editshoppinglist extends React.Component{
     constructor() {
         super();
         this.state = {
             shoppinglist:'',
-            newName:''
+            newName:'',
         }
     }
     getshoppinglist =()=>{
-        let shoplist = this.props.match.params.name;
-        this.setState({shoppinglist: shoplist});
+        this.setState({shoppinglist: this.props.match.params.name});
     }
     onChange = (e) => {
         if(e.target.value){
@@ -23,16 +23,22 @@ class Editshoppinglist extends React.Component{
         
     }
     onSubmit =() => {
-        
-        axios.put('http://127.0.0.1:5000/shoppinglists/'+this.state.shoppinglist,
-        { newName:this.state.newName}, {
-            headers: {'x-access-token': localStorage.getItem('token'),
-        }
+        axios.put(URL+'shoppinglists/'+this.state.shoppinglist,
+        { newName:this.state.newName}, 
+            {
+                headers: {'x-access-token': localStorage.getItem('token'),
+            }
           })
           .then((response) => {
-            const history = createHistory();
-            window.location.reload();
-            history.push('/shoppinglists'); 
+            let myColor = { background: 'red', text: "#FFFFFF" };
+            if(response.data['Message'] === 'Missing information')
+            {
+              notify.show("Missing information ", "custom", 5000, myColor)
+            }else{
+            
+                history.push('/shoppinglists');
+            }
+            
             
             
           })
@@ -44,15 +50,11 @@ class Editshoppinglist extends React.Component{
     }
     componentDidMount(){
         if(!localStorage.getItem('token')&& !localStorage.getItem('user')){
-            const  history = createHistory();
-            window.location.reload();
             history.push('/');
 
         }
     }
     getLists=()=>{
-        const  history = createHistory();
-        window.location.reload();
         history.push('/shoppinglists');
     }
 
@@ -121,6 +123,7 @@ class Editshoppinglist extends React.Component{
         </Grid>
         </div>
                 </Container>
+                <Notifications />
             </div>
         );
     }

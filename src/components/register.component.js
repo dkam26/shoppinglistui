@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from 'axios';
-import createHistory from 'history/createBrowserHistory';
+import {URL,history}  from '../config'
+import Notifications, {notify} from 'react-notify-toast';
 import { Icon,Button, Form, Grid, Header, Segment } from 'semantic-ui-react'
 export class Register extends React.Component{
     constructor() {
@@ -14,19 +15,16 @@ export class Register extends React.Component{
         }
         this.onChange=this.onChange.bind(this)
         this.onSubmit=this.onSubmit.bind(this)
-
     }
     onChange =(e)=> {
         this.setState({[e.target.name] : e.target.value,})
     }
     home=()=>{
-      const  history = createHistory();
-      window.location.reload();
       history.push('/');
     }
     onSubmit = () => {
         
-        axios.post('http://127.0.0.1:5000/auth/register/', {
+        axios.post(URL+'auth/register/', {
             Firstname: this.state.firstname,
             Surname: this.state.surname,
             user:this.state.username,
@@ -34,13 +32,18 @@ export class Register extends React.Component{
             Email:this.state.email
           })
           .then(function (response) {
+            let myColor = { background: 'red', text: "#FFFFFF" };
               if(response.data.message==='User created')
               {
-                const history = createHistory();
-                window.location.reload();
                 history.push('/');  
-              }else{
-                console.log(response);
+              }if(response.data.message ==='User exists'){
+                notify.show("User exists", "custom", 5000, myColor)
+              }if(response.data.message ==='Invalid email'){
+                notify.show("Invalid email", "custom", 5000, myColor)
+              }if(response.data.message === 'firstname or surname cant be numbers '){
+                notify.show("firstname or surname cant be numbers ", "custom", 5000, myColor)
+              }if(response.data.message ==='Missing information about the user'){
+                notify.show("Missing information about the user ", "custom", 5000, myColor)
               }
           })
           .catch(function (error) {
@@ -116,9 +119,10 @@ export class Register extends React.Component{
                 {/* <Button labelPosition='left' icon='left chevron' content='Back'  onClick={()=>this.home()} /> */}
               </Segment>
             </Form>
-  
+      
           </Grid.Column>
         </Grid>
+        <Notifications />
         </div>
     );
     }

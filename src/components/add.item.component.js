@@ -1,17 +1,19 @@
 import React from 'react';
 import axios from 'axios';
-import createHistory from 'history/createBrowserHistory';
+import {URL,history}  from '../config'
 import { Button, Menu ,Container,Segment,Form, Grid} from 'semantic-ui-react';
 class AddItem extends React.Component{
-    state = {
+    constructor(){
+    super();
+    this.state = {
         item: '',
         Quantity: '',
-        Amountspent: ''
+        Amountspent: '',
         }
+    
+    }
     componentDidMount(){
             if(!localStorage.getItem('token')&& !localStorage.getItem('user')){
-                const  history = createHistory();
-                window.location.reload();
                 history.push('/');
     
             }
@@ -20,26 +22,21 @@ class AddItem extends React.Component{
             this.setState({[e.target.name] : e.target.value,})
         }
     getLists =()=>{
-        const  history = createHistory()
         history.push('/shoppinglists')
     }
     onSubmit =() => {
-            let shoplst=this.props.match.params.name
-            console.log(localStorage.getItem('user'))
-            console.log(this.state.Quantity)
-            console.log(this.state.item)
-            console.log(this.state.Amountspent)
-       
-            axios.post('http://127.0.0.1:5000/shoppinglist/'+this.props.match.params.name+'/items/',
-           {product:this.state.item,Quantity:this.state.Quantity,Amountspent:this.state.Amountspent },
-            {headers: {'x-access-token': localStorage.getItem('token'),
-           }}
+            let shoplst=this.props.match.params.name   
+            axios.post(URL+'shoppinglist/'
+                    +this.props.match.params.name+'/items/',
+                {product:this.state.item,
+                Quantity:this.state.Quantity,
+                Amountspent:this.state.Amountspent 
+                },
+                    {headers: {'x-access-token': localStorage.getItem('token'),
+                }}
            
          )
               .then(function (response) {
-                  console.log(response);
-                 const history = createHistory();
-                window.location.reload();
                 let url = '/items/'+shoplst;
                  history.push(url);  
               })

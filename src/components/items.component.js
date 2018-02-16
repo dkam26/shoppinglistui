@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from 'axios';
-import createHistory from 'history/createBrowserHistory';
+import {URL,history}  from '../config'
 import { Pagination,Button,List,Input, Menu ,Container,Segment,Popup} from 'semantic-ui-react';
 class Items extends React.Component{
     constructor() {
@@ -9,7 +9,8 @@ class Items extends React.Component{
             items:[],
             shoplist:'',
             word:'',
-            activePage: 1
+            activePage: 1,
+            totalPages:1,
         }
     }
     handlePaginationChange = (e, { activePage }) => {
@@ -20,7 +21,7 @@ class Items extends React.Component{
     }   
     handleKeyup = (e)=>{
             if(this.state.word){
-            axios.get('http://127.0.0.1:5000/searchProduct/?q='+this.state.word,
+            axios.get(URL+'searchProduct/?q='+this.state.word,
                 {headers: {'x-access-token': localStorage.getItem('token'),
             }}  
             ).then( (response)=> {
@@ -34,8 +35,6 @@ class Items extends React.Component{
     }
     componentDidMount(){
         if(!localStorage.getItem('token')&& !localStorage.getItem('user')){
-            const  history = createHistory();
-            window.location.reload();
             history.push('/');
 
         }
@@ -46,13 +45,14 @@ class Items extends React.Component{
     fetchItems = () => {
         let shoplist = this.props.match.params.name;
         this.setState({shoplist: shoplist});
-        console.log(this.state.activePage)
-        axios.get('http://127.0.0.1:5000/shoppinglist/'+shoplist+'?page_number='+this.state.activePage, {
+        axios.get(URL+'shoppinglist/'+shoplist+'?page_number='+this.state.activePage, {
             headers: {'x-access-token': localStorage.getItem('token'),
             
         }
           })
           .then((response) => {
+            console.log(response.data['pages'])
+            this.setState({totalPages:response.data['pages']})
             this.setState({items: response.data['Products']});
             
           })
@@ -62,27 +62,21 @@ class Items extends React.Component{
       
 }
 editItem =(shoppinglist)=>{
-    
-    let itemshoppinglist = this.state.shoplist;
-    let amount = shoppinglist.Amountspent;
-    let product = shoppinglist.Product;
-    let quantity = shoppinglist.Quantity;
-    const history = createHistory();
-    window.location.reload();
-    history.push('/editItem/'+itemshoppinglist+'/'+product+'/'+amount+'/'+quantity);
+    history.push('/editItem/'+this.state.shoplist+
+                '/'+shoppinglist.Product+
+                '/'+shoppinglist.Amountspent+
+                '/'+shoppinglist.Quantity);
 }
 DeleteItem =(shoppinglist)=>{   
-    let itemshoppinglist = this.state.shoplist;
-    let product = shoppinglist.Product;
-    axios.delete('http://127.0.0.1:5000/shoppinglist/'+itemshoppinglist+'/items/'+product,
+    axios.delete(URL+'shoppinglist/'
+                +this.state.shoplist+
+                '/items/'+shoppinglist.Product,
     {
        headers: {'x-access-token': localStorage.getItem('token'),
    }
      })
      .then((response) => {
-       const history = createHistory();
-       window.location.reload();
-       history.push('/items/'+itemshoppinglist); 
+       history.push('/items/'+ this.state.shoplist); 
        
        
      })
@@ -91,26 +85,15 @@ DeleteItem =(shoppinglist)=>{
      });  
 }
 getLists =()=>{
-    const  history = createHistory()
-    window.location.reload();
     history.push('/shoppinglists')
 }
 addlists=()=>{
-    const  history = createHistory();
-    window.location.reload();
     history.push('/shoppinglists');
 }
 addItem =()=>{
-    let shoplist = this.props.match.params.name;
-    const history = createHistory();
-    window.location.reload();
-    let url = "/addItem/"+shoplist;
+    let url = "/addItem/"+this.props.match.params.name;
     history.push(url);
 }
-// componentWillMount(){
-//     this.fetchList();
-    
-// }
 render(){
     const { activePage } = this.state
     return(
@@ -188,7 +171,7 @@ render(){
                                 </List>
                             </Segment>
                 })}
-                 <Pagination activePage={activePage} onPageChange={this.handlePaginationChange} totalPages={50} style={{marginLeft:'318px'}}/>
+                 <Pagination activePage={activePage} onPageChange={this.handlePaginationChange} totalPages={this.state.totalPages} style={{marginLeft:'318px'}}/>
                 </Segment>
            
         )
