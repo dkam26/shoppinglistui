@@ -36,16 +36,16 @@ export class Register extends React.Component{
           })
           .then(function (response) {
             let myColor = { background: 'red', text: "#FFFFFF" };
-              if(response.data.message==='User created')
+              if(response.data['Success']==='200')
               {
                 history.push('/');  
-              }if(response.data.message ==='User exists'){
+              }if(response.data['Error'] ==='403'){
                 notify.show("User exists", "custom", 5000, myColor)
-              }if(response.data.message ==='Invalid email'){
+              }if(response.data['Error'] ==='404'){
                 notify.show("Invalid email", "custom", 5000, myColor)
-              }if(response.data.message === 'firstname or surname cant be numbers '){
+              }if(response.data['Error'] === '401'){
                 notify.show("firstname or surname cant be numbers ", "custom", 5000, myColor)
-              }if(response.data.message ==='Missing information about the user'){
+              }if(response.data['Error'] ==='400'){
                 notify.show("Missing information about the user ", "custom", 5000, myColor)
               }
           })

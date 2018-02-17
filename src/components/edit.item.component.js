@@ -53,15 +53,11 @@ class EditItem extends React.Component{
           })
           .then((response) => {
               console.log(response)
-            if(response.data["Message"]==="Quantity or Amountspent cant be negative values"){
+            if(response.data["Error"]==="403"){
                 let myColor = { background: 'red', text: "#FFFFFF" };
                 notify.show("Quantity or Amountspent cant be negative values", "custom", 5000, myColor)
-            }if(response.data["Message"]==="Invalid Input"){
-                let myColor = { background: 'red', text: "#FFFFFF" };
-                notify.show("Invalid Input", "custom", 5000, myColor)
-            }else{
-                console.log(response)
-                history.push('/items/'+this.state.shoplist); 
+            }if(response.data["Success"]==="200"){
+                history.push('/items/'+this.state.shoplist);
             }
           })
           .catch(function (error) {

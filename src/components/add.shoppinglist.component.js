@@ -31,10 +31,12 @@ class Addshoppinglist extends React.Component{
          )
               .then(function (response) {
                 let myColor = { background: 'red', text: "#FFFFFF" };
-                  if(response.data['Message'] === 'No new list name included')
+                  if(response.data['Error'] === '404')
                   {
                     notify.show("No new list name included", "custom", 5000, myColor)
-                  }else{
+                  }if(response.data['Error'] === '403'){
+                    notify.show("lists exists", "custom", 5000, myColor)
+                  }if(response.data['Error'] === '200'){
                     history.push('/shoppinglists'); 
                   }
                      

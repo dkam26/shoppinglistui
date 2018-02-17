@@ -33,10 +33,10 @@ class Editshoppinglist extends React.Component{
           })
           .then((response) => {
             let myColor = { background: 'red', text: "#FFFFFF" };
-            if(response.data['Message'] === 'Missing information')
+            if(response.data['Error'] === '404')
             {
               notify.show("Missing information ", "custom", 5000, myColor)
-            }else{
+            }if(response.data['Success']==='200'){
             
                 history.push('/shoppinglists');
             }
