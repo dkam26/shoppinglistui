@@ -3,30 +3,32 @@ import axios from 'axios';
 import {URL,history}  from '../config'
 import { Button, Menu ,Container,Segment,Form, Grid} from 'semantic-ui-react';
 import Notifications, {notify} from 'react-notify-toast';
+
 class Editshoppinglist extends React.Component{
     constructor() {
         super();
         this.state = {
             shoppinglist:'',
-            newName:'',
+            prevName:'',
         }
     }
     //Sets the state of the shoppinglist
     getshoppinglist =()=>{
-        this.setState({shoppinglist: this.props.match.params.name});
+        this.setState({
+            prevName: this.props.match.params.name,
+            shoppinglist:this.props.match.params.name
+
+        });
+        console.log(this.state.prevName)
     }
     onChange = (e) => {
-        if(e.target.value){
-            this.setState({[e.target.name] : e.target.value,})
-        }else{
-            this.setState({[e.target.name] : this.state.shoppinglist})
-        }
-        
+        this.setState({[e.target.name] : e.target.value,})
     }
     //Enables the editing of a shoppinglist name
     onSubmit =() => {
-        axios.put(URL+'shoppinglists/'+this.state.shoppinglist,
-        { newName:this.state.newName}, 
+        
+        axios.put(URL+'shoppinglists/'+this.state.prevName,
+        { newName:this.state.shoppinglist}, 
             {
                 headers: {'x-access-token': localStorage.getItem('token'),
             }
@@ -37,7 +39,8 @@ class Editshoppinglist extends React.Component{
             {
               notify.show("Missing information ", "custom", 5000, myColor)
             }if(response.data['Success']==='200'){
-            
+                let myColor = { background: 'red', text: "#FFFFFF" };
+                notify.show("Shoppinglist updated", "custom", 5000, myColor)
                 history.push('/shoppinglists');
             }
             
@@ -115,9 +118,11 @@ class Editshoppinglist extends React.Component{
               <Segment stacked>
               <Form.Input
                   fluid
-                name='newName'
-                  placeholder={this.state.shoppinglist}
+                type='text'
+                name='shoppinglist'
+                value={this.state.shoppinglist}
                   onChange={e =>this.onChange(e)}
+                  required
                 />
                 <Button color='blue' fluid size='large' onClick={()=>this.onSubmit()} >Rename shoppinglist</Button>
               </Segment>

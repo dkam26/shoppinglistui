@@ -11,7 +11,22 @@ class EditItem extends React.Component{
             product:'',
             newamount:'',
             newquantity:'',
+            prevAmount:'',
+            prevQuantity:''
         }
+    }
+    //Sets the state of the product,newamount,newquantity
+     getItem =()=>{
+        this.setState({
+            product: this.props.match.params.product,
+            shoplist: this.props.match.params.itemshoppinglist,
+            prevAmount:this.props.match.params.amount,
+            newamount:this.props.match.params.amount,
+            prevQuantity:this.props.match.params.quantity,
+            newquantity:this.props.match.params.quantity
+        });
+        
+        console.log(this.state.newamount)
     }
      //Function called before component is rendered.It verifies if user is login
     componentDidMount(){
@@ -22,21 +37,10 @@ class EditItem extends React.Component{
             this.getItem();
         }
     }
-     //Sets the state of the product,newamount,newquantity
-    getItem =()=>{
-        this.setState({
-            product: this.props.match.params.product,
-            shoplist: this.props.match.params.itemshoppinglist,
-            newamount:this.props.match.params.amount,
-            newquantity:this.props.match.params.quantity
-        });
-
-    }
+  
     onChange = (e) => {
-        if(e.target.value)
-        {
-            this.setState({[e.target.name] : e.target.value,})
-        }
+    console.log(this.state.newquantity)
+     this.setState({[e.target.name] : e.target.value,})
         
     }
     //Returns user to the items page
@@ -46,6 +50,7 @@ class EditItem extends React.Component{
     }
      //Enables the editing of a item name
      onSubmit =() => {
+         
         axios.put(URL+'shoppinglist/'+this.state.shoplist+'/items/'+this.state.product,
         { Quantity:this.state.newquantity,AmountSpent:this.state.newamount}, {
             headers: {'x-access-token': localStorage.getItem('token'),
@@ -57,7 +62,12 @@ class EditItem extends React.Component{
                 let myColor = { background: 'red', text: "#FFFFFF" };
                 notify.show("Quantity or Amountspent cant be negative values", "custom", 5000, myColor)
             }if(response.data["Success"]==="200"){
+                let myColor = { background: 'red', text: "#FFFFFF" };
+                notify.show("Item updated", "custom", 5000, myColor)
                 history.push('/items/'+this.state.shoplist);
+            } if(response.data["Error"]==="400"){
+                let myColor = { background: 'red', text: "#FFFFFF" };
+                notify.show("Invalid input", "custom", 5000, myColor)
             }
           })
           .catch(function (error) {
@@ -116,17 +126,19 @@ class EditItem extends React.Component{
                 Quantity: <Form.Input
                       fluid
                     name='newquantity'
-                    type='integer'
-                    value='static'
-                      placeholder={this.props.match.params.quantity}
+                    type='number'
+                    value={this.state.newquantity}
+
                       onChange={e =>this.onChange(e)}
+                      required
                     />
                      Amount:<Form.Input
                       fluid
                     name='newamount'
-                    type='integer'
-                      placeholder={this.props.match.params.amount}
+                    type='number'
+                    value={this.state.newamount}
                       onChange={e =>this.onChange(e)}
+                      required
                     />
                     <Button color='blue' fluid size='large' onClick={()=>this.onSubmit()} >Edit Item</Button>
                   </Segment>

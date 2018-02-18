@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import {URL,history}  from '../config'
+import Notifications, {notify} from 'react-notify-toast';
 import { Pagination,Button,List,Input, Menu ,Container,Segment,Popup} from 'semantic-ui-react';
 class Items extends React.Component{
     constructor() {
@@ -30,6 +31,7 @@ class Items extends React.Component{
             ).then( (response)=> {
                 console.log(response.data['Searched product'])
                 this.setState({items: response.data['Searched product']});
+                this.setState({totalPages:response.data['pages']})
                 })
                 .catch(function (error) {
                     console.log(error);
@@ -83,6 +85,8 @@ DeleteItem =(shoppinglist)=>{
    }
      })
      .then((response) => {
+        let myColor = { background: 'red', text: "#FFFFFF" };
+        notify.show("Item deleted ", "custom", 5000, myColor)
        history.push('/items/'+ this.state.shoplist); 
        
        
@@ -183,7 +187,7 @@ render(){
         )
         :<p>No items currently</p>
     }   
-
+     <Notifications />
        </Container>
     </div>
     );

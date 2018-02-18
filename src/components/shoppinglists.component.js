@@ -2,6 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import {URL,history}  from '../config'
 import { Pagination,Button,List, Menu ,Container,Segment,Popup,Input} from 'semantic-ui-react';
+import Notifications, {notify} from 'react-notify-toast';
 class Shoppinglists extends React.Component{
     constructor(props) {
         super(props);
@@ -26,11 +27,12 @@ class Shoppinglists extends React.Component{
     handleKeyup = (e)=>{
         e.preventDefault();
         if(this.state.word){
-        axios.get(URL+'search/?q='+this.state.word,
+        axios.get(URL+'search/?q='+this.state.word+'&page_number='+this.state.activePage,
             {headers: {'x-access-token': localStorage.getItem('token'),
         }}  
         ).then( (response)=> {
-        this.setState({shoppinglists: response.data['Message']}); 
+            this.setState({totalPages:response.data['pages']})
+            this.setState({shoppinglists: response.data['Message']}); 
             })
             .catch(function (error) {
                 console.log(error);
@@ -77,6 +79,8 @@ class Shoppinglists extends React.Component{
         }
           })
           .then((response) => {
+            let myColor = { background: 'red', text: "#FFFFFF" };
+            notify.show("Shoppinglist deleted", "custom", 5000, myColor)
             history.push('/shoppinglists'); 
             
             
@@ -103,7 +107,6 @@ class Shoppinglists extends React.Component{
     //Render function
     render(){
         const { activePage } = this.state
-       
         return(
         <div >
            
@@ -176,6 +179,7 @@ class Shoppinglists extends React.Component{
             )
             :<p>No lists</p>
         }
+        <Notifications />
     </Container>
         </div>
        

@@ -34,6 +34,8 @@
     "eject": "react-scripts eject"
   },
   "devDependencies": {
+    "babel-jest": "^22.2.2",
+    "babel-plugin-dynamic-import-webpack": "^1.0.2",
     "enzyme": "^3.3.0",
     "enzyme-adapter-react-15": "^1.0.5",
     "enzyme-adapter-react-16": "^1.1.1",
@@ -42,5 +44,10 @@
     "react-addons-test-utils": "^15.6.2",
     "react-test-renderer": "^15.6.2",
     "webpack": "^3.10.0"
+  },
+  "jest": {
+    "transform": {
+      "^.+\\.jsx?$": "babel-jest"
+    }
   }
 }

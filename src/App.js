@@ -12,18 +12,16 @@ import AddItem from "./components/add.item.component";
 class App extends Component {
   render() {
     return (
-      <div>
         <Switch>
-        <Route exact path="/" render={props =><Login {...props}/>}/>
-        <Route exact path="/register"  render={props =><Register {...props}/>}/>
-        <Route exact path="/shoppinglists"  render={props =><Shoppinglists {...props}/>}/>
-        <Route exact path="/editshoppinglist/:name"  render={props =><Editshoppinglist {...props}/>}/>
-        <Route exact path="/addshoppinglist/"  render={props =><Addshoppinglist {...props}/>}/>
-        <Route exact path="/items/:name"  render={props =><Items {...props}/>}/>
-        <Route exact path="/editItem/:itemshoppinglist/:product/:amount/:quantity"  render={props =><EditItem  {...props}/>}/>
-        <Route exact path="/addItem/:name"  render={props =><AddItem {...props}/>}/>
-        </Switch> 
-      </div>
+          <Route exact path="/" render={props =><Login {...props}/>}/>
+          <Route path="/register"  render={props =><Register {...props}/>}/>
+          <Route path="/shoppinglists"  render={props =><Shoppinglists {...props}/>}/>
+          <Route  path="/editshoppinglist/:name"  render={props =><Editshoppinglist {...props}/>}/>
+          <Route path="/addshoppinglist/"  render={props =><Addshoppinglist {...props}/>}/>
+          <Route path="/items/:name"  render={props =><Items {...props}/>}/>
+          <Route path="/editItem/:itemshoppinglist/:product/:amount/:quantity"  render={props =><EditItem  {...props}/>}/>
+          <Route path="/addItem/:name"  render={props =><AddItem {...props}/>}/>
+        </Switch>
     );
   }
 }
