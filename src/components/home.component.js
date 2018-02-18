@@ -1,31 +1,30 @@
 import React from 'react';
 import axios from 'axios';
-import createHistory from 'history/createBrowserHistory';
-import {NotificationContainer,NotificationManager} from 'react-notifications';
+import Notifications, {notify} from 'react-notify-toast';
+import {URL,history}  from '../config'
 import { Button, Form, Grid, Header, Message, Segment } from 'semantic-ui-react'
 class Login extends React.Component{
-   
+  //Function to get inputs from the form and set the state
     onChange = (e) => {
             this.setState({[e.target.name] : e.target.value,})
         }
-
+  //Function to validate user before redirecting them to the shoppinglists page
     onSubmit =() => {
-            console.log(localStorage.getItem('user'))
-            console.log(localStorage.getItem('token'))
-            axios.post('http://127.0.0.1:5000/auth/login/', {
+            axios.post(URL+'auth/login/', {
                 user:this.state.username,
                 Password:this.state.password,
               })
               .then( (response) => {
-                
+                let myColor = { background: 'red', text: "#FFFFFF" };
                 if(response.data.token){
-                    const  history = createHistory()
                     localStorage.setItem('token', response.data.token)
                     localStorage.setItem('user', response.data.Welcome)
-                    window.location.reload()
                     history.push('/shoppinglists')
-                }if(response.data.message === 'Wrong credentials'){ 
-                    NotificationManager.error(response.data.message )
+                }if(response.data['Error'] === '401'){ 
+                  
+                  notify.show("Valid username or password", "custom", 5000, myColor)
+                }if(response.data['Error'] === '404'){
+                  notify.show("Missing information about the user", "custom", 5000, myColor)
                 }
 
               })
@@ -78,7 +77,7 @@ class Login extends React.Component{
               </Segment>
             </Form>
          
-         <NotificationContainer className="ui red message"/>
+            <Notifications />
          
             <Message >
               New to us? <a href='/register'>Sign Up</a>

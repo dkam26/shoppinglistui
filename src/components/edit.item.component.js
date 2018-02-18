@@ -1,7 +1,8 @@
 import React from 'react';
 import axios from 'axios';
-import createHistory from 'history/createBrowserHistory';
+import {URL,history}  from '../config'
 import { Button, Menu ,Container,Segment,Form, Grid} from 'semantic-ui-react';
+import Notifications, {notify} from 'react-notify-toast';
 class EditItem extends React.Component{
     constructor() {
         super();
@@ -9,23 +10,27 @@ class EditItem extends React.Component{
             shoplist:'',
             product:'',
             newamount:'',
-            newquantity:''
+            newquantity:'',
         }
     }
+     //Function called before component is rendered.It verifies if user is login
     componentDidMount(){
         if(!localStorage.getItem('token')&& !localStorage.getItem('user')){
-            const  history = createHistory();
-            window.location.reload();
             history.push('/');
 
+        }else{
+            this.getItem();
         }
     }
+     //Sets the state of the product,newamount,newquantity
     getItem =()=>{
-        this.setState({product: this.props.match.params.product});
-        this.setState({shoplist: this.props.match.params.itemshoppinglist});
-        this.setState({newamount:this.props.match.params.amount,})
-        this.setState({newquantity:this.props.match.params.quantity,})
-        console.log(this.state.shoplist)
+        this.setState({
+            product: this.props.match.params.product,
+            shoplist: this.props.match.params.itemshoppinglist,
+            newamount:this.props.match.params.amount,
+            newquantity:this.props.match.params.quantity
+        });
+
     }
     onChange = (e) => {
         if(e.target.value)
@@ -34,28 +39,26 @@ class EditItem extends React.Component{
         }
         
     }
+    //Returns user to the items page
     getLists=(shoppinglist)=>{
-        const history = createHistory();
-        window.location.reload();
         let url = "/items/"+shoppinglist
         history.push(url);
     }
-    componentWillMount(){
-        this.getItem();
-     }
+     //Enables the editing of a item name
      onSubmit =() => {
-        console.log(this.state.newamount)
-        axios.put('http://127.0.0.1:5000/shoppinglist/'+this.state.shoplist+'/items/'+this.state.product,
+        axios.put(URL+'shoppinglist/'+this.state.shoplist+'/items/'+this.state.product,
         { Quantity:this.state.newquantity,AmountSpent:this.state.newamount}, {
             headers: {'x-access-token': localStorage.getItem('token'),
         }
           })
           .then((response) => {
-            const history = createHistory();
-            window.location.reload();
-            history.push('/items/'+this.state.shoplist); 
-            
-            
+              console.log(response)
+            if(response.data["Error"]==="403"){
+                let myColor = { background: 'red', text: "#FFFFFF" };
+                notify.show("Quantity or Amountspent cant be negative values", "custom", 5000, myColor)
+            }if(response.data["Success"]==="200"){
+                history.push('/items/'+this.state.shoplist);
+            }
           })
           .catch(function (error) {
             console.log(error);
@@ -113,12 +116,15 @@ class EditItem extends React.Component{
                 Quantity: <Form.Input
                       fluid
                     name='newquantity'
+                    type='integer'
+                    value='static'
                       placeholder={this.props.match.params.quantity}
                       onChange={e =>this.onChange(e)}
                     />
                      Amount:<Form.Input
                       fluid
                     name='newamount'
+                    type='integer'
                       placeholder={this.props.match.params.amount}
                       onChange={e =>this.onChange(e)}
                     />
@@ -130,6 +136,7 @@ class EditItem extends React.Component{
             </Grid>
             </div>
                     </Container>
+                    <Notifications />
                 </div>
         );
     }

@@ -1,7 +1,8 @@
 import React from 'react';
 import axios from 'axios';
-import createHistory from 'history/createBrowserHistory';
-import { Button, Form, Grid, Header, Segment } from 'semantic-ui-react'
+import {URL,history}  from '../config'
+import Notifications, {notify} from 'react-notify-toast';
+import { Icon,Button, Form, Grid, Header, Segment } from 'semantic-ui-react'
 export class Register extends React.Component{
     constructor() {
         super();
@@ -14,15 +15,19 @@ export class Register extends React.Component{
         }
         this.onChange=this.onChange.bind(this)
         this.onSubmit=this.onSubmit.bind(this)
-
     }
-    onChange (e) {
+     //Function to get inputs from the form and set the state
+    onChange =(e)=> {
         this.setState({[e.target.name] : e.target.value,})
     }
-
-    onSubmit () {
+    //Function redirects user to the login page
+    home=()=>{
+      history.push('/');
+    }
+    //Function registers user
+    onSubmit = () => {
         
-        axios.post('http://127.0.0.1:5000/auth/register/', {
+        axios.post(URL+'auth/register/', {
             Firstname: this.state.firstname,
             Surname: this.state.surname,
             user:this.state.username,
@@ -30,13 +35,18 @@ export class Register extends React.Component{
             Email:this.state.email
           })
           .then(function (response) {
-              if(response.data.message==='User created')
+            let myColor = { background: 'red', text: "#FFFFFF" };
+              if(response.data['Success']==='200')
               {
-                const history = createHistory();
-                window.location.reload();
                 history.push('/');  
-              }else{
-                console.log(response);
+              }if(response.data['Error'] ==='403'){
+                notify.show("User exists", "custom", 5000, myColor)
+              }if(response.data['Error'] ==='404'){
+                notify.show("Invalid email", "custom", 5000, myColor)
+              }if(response.data['Error'] === '401'){
+                notify.show("firstname or surname cant be numbers ", "custom", 5000, myColor)
+              }if(response.data['Error'] ==='400'){
+                notify.show("Missing information about the user ", "custom", 5000, myColor)
               }
           })
           .catch(function (error) {
@@ -106,11 +116,16 @@ export class Register extends React.Component{
                   onChange={e =>this.onChange(e)}
                 />
                 <Button color='blue' fluid size='large' onClick={()=>this.onSubmit()} >Create Account</Button>
+                <div style={{padding:"17px"}}>
+                <Icon name="arrow circle outline left" size="large" onClick={()=>this.home()}/>Back
+                </div>
+                {/* <Button labelPosition='left' icon='left chevron' content='Back'  onClick={()=>this.home()} /> */}
               </Segment>
             </Form>
-  
+      
           </Grid.Column>
         </Grid>
+        <Notifications />
         </div>
     );
     }

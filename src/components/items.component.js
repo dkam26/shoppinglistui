@@ -1,19 +1,44 @@
 import React from 'react';
 import axios from 'axios';
-import createHistory from 'history/createBrowserHistory';
-import { Button,List,Input, Menu ,Container,Segment,Popup} from 'semantic-ui-react';
+import {URL,history}  from '../config'
+import { Pagination,Button,List,Input, Menu ,Container,Segment,Popup} from 'semantic-ui-react';
 class Items extends React.Component{
     constructor() {
         super();
         this.state = {
             items:[],
-            shoplist:''
+            shoplist:'',
+            word:'',
+            activePage: 1,
+            totalPages:1,
         }
     }
+     //implementation of pagination
+    handlePaginationChange = (e, { activePage }) => {
+        this.fetchItems();
+        this.setState({ activePage } )}
+     //Function to get inputs from the form and set the state
+    onChange = (e) => {
+        this.setState({ word : e.target.value,}) 
+    }  
+     //Function ensures auto search 
+    handleKeyup = (e)=>{
+            if(this.state.word){
+            axios.get(URL+'searchProduct/?q='+this.state.word,
+                {headers: {'x-access-token': localStorage.getItem('token'),
+            }}  
+            ).then( (response)=> {
+                console.log(response.data['Searched product'])
+                this.setState({items: response.data['Searched product']});
+                })
+                .catch(function (error) {
+                    console.log(error);
+                })
+            }
+    }
+    //Function called before component is rendered.It verifies if user is login
     componentDidMount(){
         if(!localStorage.getItem('token')&& !localStorage.getItem('user')){
-            const  history = createHistory();
-            window.location.reload();
             history.push('/');
 
         }
@@ -21,15 +46,18 @@ class Items extends React.Component{
              this.fetchItems();
         }
     }
+      //Function queries items for a given shoppinglist
     fetchItems = () => {
         let shoplist = this.props.match.params.name;
         this.setState({shoplist: shoplist});
-        axios.get('http://127.0.0.1:5000/shoppinglist/'+shoplist, {
+        axios.get(URL+'shoppinglist/'+shoplist+'?page_number='+this.state.activePage, {
             headers: {'x-access-token': localStorage.getItem('token'),
             
         }
           })
           .then((response) => {
+            console.log(response.data['pages'])
+            this.setState({totalPages:response.data['pages']})
             this.setState({items: response.data['Products']});
             
           })
@@ -38,28 +66,24 @@ class Items extends React.Component{
           });              
       
 }
+//Function redirects user to edit shoopinglist item
 editItem =(shoppinglist)=>{
-    
-    let itemshoppinglist = this.state.shoplist;
-    let amount = shoppinglist.Amountspent;
-    let product = shoppinglist.Product;
-    let quantity = shoppinglist.Quantity;
-    const history = createHistory();
-    window.location.reload();
-    history.push('/editItem/'+itemshoppinglist+'/'+product+'/'+amount+'/'+quantity);
+    history.push('/editItem/'+this.state.shoplist+
+                '/'+shoppinglist.Product+
+                '/'+shoppinglist.Amountspent+
+                '/'+shoppinglist.Quantity);
 }
+ //Function enables deleting a shoppinglist item
 DeleteItem =(shoppinglist)=>{   
-    let itemshoppinglist = this.state.shoplist;
-    let product = shoppinglist.Product;
-    axios.delete('http://127.0.0.1:5000/shoppinglist/'+itemshoppinglist+'/items/'+product,
+    axios.delete(URL+'shoppinglist/'
+                +this.state.shoplist+
+                '/items/'+shoppinglist.Product,
     {
        headers: {'x-access-token': localStorage.getItem('token'),
    }
      })
      .then((response) => {
-       const history = createHistory();
-       window.location.reload();
-       history.push('/items/'+itemshoppinglist); 
+       history.push('/items/'+ this.state.shoplist); 
        
        
      })
@@ -67,28 +91,17 @@ DeleteItem =(shoppinglist)=>{
        console.log(error);
      });  
 }
+//Returns user to shoppinglists page
 getLists =()=>{
-    const  history = createHistory()
     history.push('/shoppinglists')
 }
-addlists=()=>{
-    const  history = createHistory();
-    window.location.reload();
-    history.push('/shoppinglists');
-}
+//Enables user to add items
 addItem =()=>{
-    let shoplist = this.props.match.params.name;
-    const history = createHistory();
-    window.location.reload();
-    let url = "/addItem/"+shoplist;
+    let url = "/addItem/"+this.props.match.params.name;
     history.push(url);
 }
-componentWillMount(){
-   
-    
-}
 render(){
-   
+    const { activePage } = this.state
     return(
         
         <div>
@@ -119,7 +132,7 @@ render(){
                                     </Menu.Menu>
                                     <Menu.Menu position='right'>
                                     <Menu.Item>
-                                        <Input icon='search' placeholder='Search by name...' />
+                                    <Input name="word" icon='search' placeholder='Search by name...' onChange={this.onChange} onKeyUp={this.handleKeyup}/>
                                         </Menu.Item> 
                                     
                                     </Menu.Menu>
@@ -164,6 +177,7 @@ render(){
                                 </List>
                             </Segment>
                 })}
+                 <Pagination activePage={activePage} onPageChange={this.handlePaginationChange} totalPages={this.state.totalPages} style={{marginLeft:'318px'}}/>
                 </Segment>
            
         )

@@ -1,38 +1,45 @@
 import React from 'react';
 import axios from 'axios';
-import createHistory from 'history/createBrowserHistory';
+import {URL,history}  from '../config'
 import { Button, Menu ,Container,Segment,Form, Grid} from 'semantic-ui-react';
+import Notifications, {notify} from 'react-notify-toast';
 class Addshoppinglist extends React.Component{
     state = {
         shoppinglist: '',
         }
+    //Function called before component is rendered.It verifies if user is login
     componentDidMount(){
             if(!localStorage.getItem('token')&& !localStorage.getItem('user')){
-                const  history = createHistory();
-                window.location.reload();
                 history.push('/');
     
             }
         }
+    //Returns user to the shoppinglist page
     getLists =()=>{
-            const  history = createHistory()
             history.push('/shoppinglists')
         }
     onChange = (e) => {
             this.setState({shoppinglist : e.target.value,})
         }
+    //Function enables user to add a shoppinglist
     onSubmit =() => {
-            axios.post('http://127.0.0.1:5000/addshoppinglists/?user='+localStorage.getItem('user'),
+            axios.post(URL+'addshoppinglists/?user='+localStorage.getItem('user'),
            { newlist:this.state.shoppinglist},
             {headers: {'x-access-token': localStorage.getItem('token'),
            }}
             
          )
               .then(function (response) {
-                  console.log(response);
-                    const history = createHistory();
-                    window.location.reload();
-                    history.push('/shoppinglists');  
+                let myColor = { background: 'red', text: "#FFFFFF" };
+                  if(response.data['Error'] === '404')
+                  {
+                    notify.show("No new list name included", "custom", 5000, myColor)
+                  }if(response.data['Error'] === '403'){
+                    notify.show("lists exists", "custom", 5000, myColor)
+                  }if(response.data['Error'] === '200'){
+                    history.push('/shoppinglists'); 
+                  }
+                     
               })
               .catch(function (error) {
                 console.log(error);
@@ -100,6 +107,7 @@ class Addshoppinglist extends React.Component{
         </Grid>
         </div>
              </Container>
+             <Notifications />
             </div>
         );        
     }
