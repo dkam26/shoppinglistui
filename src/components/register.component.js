@@ -13,12 +13,10 @@ export class Register extends React.Component{
         surname: '',
         firstname: ''
         }
-        this.onChange=this.onChange.bind(this)
-        this.onSubmit=this.onSubmit.bind(this)
     }
      //Function to get inputs from the form and set the state
-    onChange =(e)=> {
-        this.setState({[e.target.name] : e.target.value,})
+    onChange = (e) => {
+        this.setState({[e.target.name] : e.target.value})
     }
     //Function redirects user to the login page
     home=()=>{
@@ -81,6 +79,7 @@ export class Register extends React.Component{
                   iconPosition='left'
                   placeholder='Surname'
                   onChange={e =>this.onChange(e)}
+                  id='surname'
                 />
                 <Form.Input
                   fluid
@@ -89,6 +88,7 @@ export class Register extends React.Component{
                   iconPosition='left'
                   placeholder='First name'
                   onChange={e =>this.onChange(e)}
+                  id='firstname'
                 />
                 <Form.Input
                   fluid
@@ -97,6 +97,7 @@ export class Register extends React.Component{
                   iconPosition='left'
                   placeholder='Username'
                   onChange={e =>this.onChange(e)}
+                  id = 'username'
                 />
                 <Form.Input
                   fluid
@@ -106,6 +107,7 @@ export class Register extends React.Component{
                   type='password'
                   name='password'
                   onChange={e =>this.onChange(e)}
+                  id = 'password'
                  />
                 <Form.Input
                   fluid
@@ -114,6 +116,7 @@ export class Register extends React.Component{
                   iconPosition='left'
                   placeholder='Email'
                   onChange={e =>this.onChange(e)}
+                  id= 'email'
                 />
                 <Button color='blue' fluid size='large' onClick={()=>this.onSubmit()} >Create Account</Button>
                 <div style={{padding:"17px"}}>
