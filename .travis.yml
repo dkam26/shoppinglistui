@@ -10,6 +10,7 @@ cache:
 install:
   - npm install jest-cli
   - npm install coveralls --save
+  - npm install jest-util
   - npm install
 # command to run tests
 script:
