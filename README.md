@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/dkam26/shoppinglistui.svg?branch=develop)](https://travis-ci.org/dkam26/shoppinglistui)
+[![Coverage Status](https://coveralls.io/repos/github/dkam26/shoppinglistui/badge.svg?branch=develop)](https://coveralls.io/github/dkam26/shoppinglistui?branch=develop)
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
 
 Below you will find some information on how to perform common tasks.<br>
