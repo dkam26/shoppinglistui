@@ -1,0 +1,273 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`edit shoopinglists component should edit shoppinglist 1`] = `
+<div>
+  <Container>
+    <Segment>
+      <Menu
+        secondary={true}
+        style={
+          Object {
+            "backgroundColor": "black",
+          }
+        }
+      >
+        <MenuItem
+          name="SHOPPINGLIST"
+          style={
+            Object {
+              "color": "white",
+            }
+          }
+        />
+        <MenuMenu
+          position="right"
+        >
+          <MenuItem
+            name="logout"
+            style={
+              Object {
+                "color": "white",
+              }
+            }
+          />
+        </MenuMenu>
+      </Menu>
+    </Segment>
+    <Segment>
+      <Menu
+        secondary={true}
+      >
+        <MenuMenu>
+          <MenuMenu
+            position="right"
+          >
+            <MenuItem>
+              <Button
+                as="button"
+                content="Back"
+                icon="left chevron"
+                labelPosition="left"
+                onClick={[Function]}
+              />
+            </MenuItem>
+          </MenuMenu>
+        </MenuMenu>
+        <MenuMenu>
+          <MenuItem>
+            <h3
+              style={
+                Object {
+                  "marginLeft": "308px",
+                }
+              }
+            >
+              Edit  
+               list
+            </h3>
+          </MenuItem>
+        </MenuMenu>
+      </Menu>
+    </Segment>
+    <div
+      className="login-form"
+    >
+      <style>
+        
+      body &gt; div,
+      body &gt; div &gt; div,
+      body &gt; div &gt; div &gt; div.login-form {
+        height: 100%;
+      }
+    
+      </style>
+      <Grid
+        style={
+          Object {
+            "height": "100%",
+          }
+        }
+        textAlign="center"
+        verticalAlign="middle"
+      >
+        <GridColumn
+          style={
+            Object {
+              "maxWidth": 450,
+            }
+          }
+        >
+          <Form
+            as="form"
+            size="large"
+          >
+            <Segment
+              stacked={true}
+            >
+              <FormInput
+                as={[Function]}
+                control={[Function]}
+                fluid={true}
+                name="shoppinglist"
+                onChange={[Function]}
+                required={true}
+                type="text"
+                value=""
+              />
+              <Button
+                as="button"
+                color="blue"
+                fluid={true}
+                id="EditShoppinglist"
+                onClick={[Function]}
+                size="large"
+              >
+                Rename shoppinglist
+              </Button>
+            </Segment>
+          </Form>
+        </GridColumn>
+      </Grid>
+    </div>
+  </Container>
+  <_class
+    options={Object {}}
+  />
+</div>
+`;
+
+exports[`edit shoopinglists component should render correctly 1`] = `
+<div>
+  <Container>
+    <Segment>
+      <Menu
+        secondary={true}
+        style={
+          Object {
+            "backgroundColor": "black",
+          }
+        }
+      >
+        <MenuItem
+          name="SHOPPINGLIST"
+          style={
+            Object {
+              "color": "white",
+            }
+          }
+        />
+        <MenuMenu
+          position="right"
+        >
+          <MenuItem
+            name="logout"
+            style={
+              Object {
+                "color": "white",
+              }
+            }
+          />
+        </MenuMenu>
+      </Menu>
+    </Segment>
+    <Segment>
+      <Menu
+        secondary={true}
+      >
+        <MenuMenu>
+          <MenuMenu
+            position="right"
+          >
+            <MenuItem>
+              <Button
+                as="button"
+                content="Back"
+                icon="left chevron"
+                labelPosition="left"
+                onClick={[Function]}
+              />
+            </MenuItem>
+          </MenuMenu>
+        </MenuMenu>
+        <MenuMenu>
+          <MenuItem>
+            <h3
+              style={
+                Object {
+                  "marginLeft": "308px",
+                }
+              }
+            >
+              Edit  
+               list
+            </h3>
+          </MenuItem>
+        </MenuMenu>
+      </Menu>
+    </Segment>
+    <div
+      className="login-form"
+    >
+      <style>
+        
+      body &gt; div,
+      body &gt; div &gt; div,
+      body &gt; div &gt; div &gt; div.login-form {
+        height: 100%;
+      }
+    
+      </style>
+      <Grid
+        style={
+          Object {
+            "height": "100%",
+          }
+        }
+        textAlign="center"
+        verticalAlign="middle"
+      >
+        <GridColumn
+          style={
+            Object {
+              "maxWidth": 450,
+            }
+          }
+        >
+          <Form
+            as="form"
+            size="large"
+          >
+            <Segment
+              stacked={true}
+            >
+              <FormInput
+                as={[Function]}
+                control={[Function]}
+                fluid={true}
+                name="shoppinglist"
+                onChange={[Function]}
+                required={true}
+                type="text"
+                value=""
+              />
+              <Button
+                as="button"
+                color="blue"
+                fluid={true}
+                id="EditShoppinglist"
+                onClick={[Function]}
+                size="large"
+              >
+                Rename shoppinglist
+              </Button>
+            </Segment>
+          </Form>
+        </GridColumn>
+      </Grid>
+    </div>
+  </Container>
+  <_class
+    options={Object {}}
+  />
+</div>
+`;

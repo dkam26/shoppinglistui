@@ -2,6 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import {URL,history}  from '../config'
 import { Button, Menu ,Container,Segment,Form, Grid} from 'semantic-ui-react';
+import {Redirect} from 'react-router-dom';
 class AddItem extends React.Component{
     constructor(){
     super();
@@ -9,14 +10,19 @@ class AddItem extends React.Component{
         item: '',
         Quantity: '',
         Amountspent: '',
+        home:false,
+        shoplist:'',
+        shoppinglists:false
         }
     
     }
     //Function called before component is rendered.It verifies if user is login
     componentDidMount(){
             if(!localStorage.getItem('token')&& !localStorage.getItem('user')){
-                history.push('/');
+                this.setState({redirect:true})
     
+            }else{
+                this.setState({shoplist:this.props.match.params.name })  
             }
         }
     onChange = (e) => {
@@ -24,13 +30,14 @@ class AddItem extends React.Component{
         }
          //Returns user to the shoppinglist page
     getLists =()=>{
-        history.push('/shoppinglists')
+        this.setState({shoppinglists:true})
     }
 //Function enables user to add a shoppinglist
     onSubmit =() => {
-            let shoplst=this.props.match.params.name   
+            
+            
             axios.post(URL+'shoppinglist/'
-                    +this.props.match.params.name+'/items/',
+                    +this.state.shoplist+'/items/',
                 {product:this.state.item,
                 Quantity:this.state.Quantity,
                 Amountspent:this.state.Amountspent 
@@ -40,7 +47,7 @@ class AddItem extends React.Component{
            
          )
               .then(function (response) {
-                let url = '/items/'+shoplst;
+                let url = '/items/'+this.state.shoplist;
                  history.push(url);  
               })
               .catch(function (error) {
@@ -48,7 +55,10 @@ class AddItem extends React.Component{
               });
         }
     render(){
-        
+        if(this.state.home)
+            return <Redirect to='/'/>
+        if(this.state.shoppinglists)
+            return <Redirect to='/shoppinglists'/>
         return(
             <div >
                <Container>
@@ -100,20 +110,26 @@ class AddItem extends React.Component{
                   name='item'
                   placeholder='item'
                   onChange={e =>this.onChange(e)}
+                  id = 'item'
+                  type='text'
                 />
                 <Form.Input
                   fluid
                   name='Quantity'
                   placeholder='Quantity'
                   onChange={e =>this.onChange(e)}
+                  id = 'Quantity'
+                  type='number'
                 />
                 <Form.Input
                   fluid
                   name='Amountspent'
                   placeholder='Amount spent'
                   onChange={e =>this.onChange(e)}
+                  id = 'Amountspent'
+                  type='number'
                 />
-                <Button color='blue' fluid size='large' onClick={()=>this.onSubmit()} >Add Item</Button>
+                <Button color='blue' fluid size='large' onClick={()=>this.onSubmit()} id ='add'>Add Item</Button>
               </Segment>
             </Form>
   

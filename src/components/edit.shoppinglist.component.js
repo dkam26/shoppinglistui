@@ -3,13 +3,14 @@ import axios from 'axios';
 import {URL,history}  from '../config'
 import { Button, Menu ,Container,Segment,Form, Grid} from 'semantic-ui-react';
 import Notifications, {notify} from 'react-notify-toast';
-
+import {Redirect} from 'react-router-dom';
 class Editshoppinglist extends React.Component{
     constructor() {
         super();
         this.state = {
             shoppinglist:'',
             prevName:'',
+            home:false,
         }
     }
     //Sets the state of the shoppinglist
@@ -55,8 +56,8 @@ class Editshoppinglist extends React.Component{
     }
     //Function called before component is rendered.It verifies if user is login
     componentDidMount(){
-        if(!localStorage.getItem('token')&& !localStorage.getItem('user')){
-            history.push('/');
+        if(!localStorage.getItem('token') && !localStorage.getItem('user')){
+            this.setState({redirect:true})
 
         }else{
             this.getshoppinglist();
@@ -69,6 +70,8 @@ class Editshoppinglist extends React.Component{
 
 
     render(){
+        if(this.state.home)
+            return <Redirect to='/'/>
         return(
                   
         <div>
@@ -93,7 +96,7 @@ class Editshoppinglist extends React.Component{
                                     </Menu.Menu>
                                     <Menu.Menu  >
                                         <Menu.Item >
-                                        <h3 style={{marginLeft:"308px"}}>Edit  {this.props.match.params.name} list</h3>
+                                        <h3 style={{marginLeft:"308px"}}>Edit  {this.state.prevName} list</h3>
                                         </Menu.Item>
                                     </Menu.Menu>
                                    
@@ -124,7 +127,7 @@ class Editshoppinglist extends React.Component{
                   onChange={e =>this.onChange(e)}
                   required
                 />
-                <Button color='blue' fluid size='large' onClick={()=>this.onSubmit()} >Rename shoppinglist</Button>
+                <Button color='blue' fluid size='large' onClick={()=>this.onSubmit()} id ='EditShoppinglist'>Rename shoppinglist</Button>
               </Segment>
             </Form>
   

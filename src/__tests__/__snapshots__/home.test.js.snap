@@ -1,0 +1,94 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`login component should render correctly 1`] = `
+<div
+  className="login-form"
+>
+  <style>
+    
+      body &gt; div,
+      body &gt; div &gt; div,
+      body &gt; div &gt; div &gt; div.login-form {
+        height: 100%;
+      }
+    
+  </style>
+  <Grid
+    style={
+      Object {
+        "height": "100%",
+      }
+    }
+    textAlign="center"
+    verticalAlign="middle"
+  >
+    <GridColumn
+      style={
+        Object {
+          "maxWidth": 450,
+        }
+      }
+    >
+      <Header
+        as="h2"
+        color="black"
+        textAlign="center"
+      >
+        Shoppinglists-App
+      </Header>
+      <Form
+        as="form"
+        size="large"
+      >
+        <Segment
+          stacked={true}
+        >
+          <FormInput
+            as={[Function]}
+            control={[Function]}
+            fluid={true}
+            icon="user"
+            iconPosition="left"
+            id="username"
+            name="username"
+            onChange={[Function]}
+            placeholder="Username"
+          />
+          <FormInput
+            as={[Function]}
+            control={[Function]}
+            fluid={true}
+            icon="lock"
+            iconPosition="left"
+            id="password"
+            name="password"
+            onChange={[Function]}
+            placeholder="Password"
+            type="password"
+          />
+          <Button
+            as="button"
+            color="blue"
+            fluid={true}
+            onClick={[Function]}
+            size="large"
+          >
+            Login
+          </Button>
+        </Segment>
+      </Form>
+      <_class
+        options={Object {}}
+      />
+      <Message>
+        New to us? 
+        <a
+          href="/register"
+        >
+          Sign Up
+        </a>
+      </Message>
+    </GridColumn>
+  </Grid>
+</div>
+`;

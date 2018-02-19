@@ -3,6 +3,7 @@ import axios from 'axios';
 import {URL,history}  from '../config'
 import Notifications, {notify} from 'react-notify-toast';
 import { Pagination,Button,List,Input, Menu ,Container,Segment,Popup} from 'semantic-ui-react';
+import {Redirect} from 'react-router-dom';
 class Items extends React.Component{
     constructor() {
         super();
@@ -12,6 +13,7 @@ class Items extends React.Component{
             word:'',
             activePage: 1,
             totalPages:1,
+            home:false,
         }
     }
      //implementation of pagination
@@ -39,9 +41,9 @@ class Items extends React.Component{
             }
     }
     //Function called before component is rendered.It verifies if user is login
-    componentDidMount(){
+    componentWillMount(){
         if(!localStorage.getItem('token')&& !localStorage.getItem('user')){
-            history.push('/');
+            this.setState({redirect:true})
 
         }
         else{
@@ -105,6 +107,8 @@ addItem =()=>{
     history.push(url);
 }
 render(){
+    if(this.state.home)
+        return <Redirect to='/'/>
     const { activePage } = this.state
     return(
         
@@ -125,13 +129,14 @@ render(){
                                         <Popup
                                             trigger={<Button icon='add' onClick={()=>this.addItem()} />}
                                             content='Add item'
+                                            id='addItem'
 
                                         />
                                         </Menu.Item>
                                     </Menu.Menu>
                                     <Menu.Menu  >
                                         <Menu.Item >
-                                        <h3 style={{marginLeft:"308px"}}>Items in {this.props.match.params.name} list</h3>
+                                        <h3 style={{marginLeft:"308px"}}>Items in {this.state.shoplist} list</h3>
                                         </Menu.Item>
                                     </Menu.Menu>
                                     <Menu.Menu position='right'>

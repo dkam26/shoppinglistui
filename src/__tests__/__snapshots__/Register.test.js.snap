@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`component render the two inputs 1`] = `
+exports[`component render the five inputs 1`] = `
 <div
   className="login-form"
 >
@@ -103,6 +103,141 @@ exports[`component render the two inputs 1`] = `
             as="button"
             color="blue"
             fluid={true}
+            id="create"
+            onClick={[Function]}
+            size="large"
+          >
+            Create Account
+          </Button>
+          <div
+            style={
+              Object {
+                "padding": "17px",
+              }
+            }
+          >
+            <Icon
+              as="i"
+              name="arrow circle outline left"
+              onClick={[Function]}
+              size="large"
+            />
+            Back
+          </div>
+        </Segment>
+      </Form>
+    </GridColumn>
+  </Grid>
+  <_class
+    options={Object {}}
+  />
+</div>
+`;
+
+exports[`component should create user 1`] = `
+<div
+  className="login-form"
+>
+  <style>
+    
+      body &gt; div,
+      body &gt; div &gt; div,
+      body &gt; div &gt; div &gt; div.login-form {
+        height: 100%;
+      }
+    
+  </style>
+  <Grid
+    style={
+      Object {
+        "height": "100%",
+      }
+    }
+    textAlign="center"
+    verticalAlign="middle"
+  >
+    <GridColumn
+      style={
+        Object {
+          "maxWidth": 450,
+        }
+      }
+    >
+      <Header
+        as="h2"
+        color="teal"
+        textAlign="center"
+      >
+        Register
+      </Header>
+      <Form
+        as="form"
+        size="large"
+      >
+        <Segment
+          stacked={true}
+        >
+          <FormInput
+            as={[Function]}
+            control={[Function]}
+            fluid={true}
+            icon="user"
+            iconPosition="left"
+            id="surname"
+            name="surname"
+            onChange={[Function]}
+            placeholder="Surname"
+          />
+          <FormInput
+            as={[Function]}
+            control={[Function]}
+            fluid={true}
+            icon="user"
+            iconPosition="left"
+            id="firstname"
+            name="firstname"
+            onChange={[Function]}
+            placeholder="First name"
+          />
+          <FormInput
+            as={[Function]}
+            control={[Function]}
+            fluid={true}
+            icon="user"
+            iconPosition="left"
+            id="username"
+            name="username"
+            onChange={[Function]}
+            placeholder="Username"
+          />
+          <FormInput
+            as={[Function]}
+            control={[Function]}
+            fluid={true}
+            icon="lock"
+            iconPosition="left"
+            id="password"
+            name="password"
+            onChange={[Function]}
+            placeholder="Password"
+            type="password"
+          />
+          <FormInput
+            as={[Function]}
+            control={[Function]}
+            fluid={true}
+            icon="user"
+            iconPosition="left"
+            id="email"
+            name="email"
+            onChange={[Function]}
+            placeholder="Email"
+          />
+          <Button
+            as="button"
+            color="blue"
+            fluid={true}
+            id="create"
             onClick={[Function]}
             size="large"
           >
@@ -236,6 +371,7 @@ exports[`component should render correctly 1`] = `
             as="button"
             color="blue"
             fluid={true}
+            id="create"
             onClick={[Function]}
             size="large"
           >

@@ -1,0 +1,259 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`shoopinglists component render notifications 1`] = `
+<div>
+  <Container>
+    <Segment>
+      <Menu
+        secondary={true}
+        style={
+          Object {
+            "backgroundColor": "black",
+          }
+        }
+      >
+        <MenuItem
+          name="SHOPPINGLIST"
+          style={
+            Object {
+              "color": "white",
+            }
+          }
+        />
+        <MenuMenu
+          position="right"
+        />
+      </Menu>
+    </Segment>
+    <Segment>
+      <Menu
+        secondary={true}
+      >
+        <MenuMenu>
+          <MenuItem>
+            <Popup
+              content="Add shoppinglist"
+              id="addshoppinglist"
+              on="hover"
+              position="top left"
+              trigger={
+                <Button
+                  as="button"
+                  icon="add"
+                  onClick={[Function]}
+                />
+              }
+            />
+          </MenuItem>
+        </MenuMenu>
+        <MenuMenu>
+          <MenuItem>
+            <h3
+              style={
+                Object {
+                  "marginLeft": "308px",
+                }
+              }
+            >
+              Your Shoppinglists
+            </h3>
+          </MenuItem>
+        </MenuMenu>
+        <MenuMenu
+          position="right"
+        >
+          <MenuItem>
+            <Input
+              icon="search"
+              name="word"
+              onChange={[Function]}
+              onKeyUp={[Function]}
+              placeholder="Search by name..."
+              type="text"
+            />
+          </MenuItem>
+        </MenuMenu>
+      </Menu>
+    </Segment>
+    <p>
+      No lists
+    </p>
+    <_class
+      id="alert"
+      options={Object {}}
+    />
+  </Container>
+</div>
+`;
+
+exports[`shoopinglists component should add shoppinglist 1`] = `
+<div>
+  <Container>
+    <Segment>
+      <Menu
+        secondary={true}
+        style={
+          Object {
+            "backgroundColor": "black",
+          }
+        }
+      >
+        <MenuItem
+          name="SHOPPINGLIST"
+          style={
+            Object {
+              "color": "white",
+            }
+          }
+        />
+        <MenuMenu
+          position="right"
+        />
+      </Menu>
+    </Segment>
+    <Segment>
+      <Menu
+        secondary={true}
+      >
+        <MenuMenu>
+          <MenuItem>
+            <Popup
+              content="Add shoppinglist"
+              id="addshoppinglist"
+              on="hover"
+              position="top left"
+              trigger={
+                <Button
+                  as="button"
+                  icon="add"
+                  onClick={[Function]}
+                />
+              }
+            />
+          </MenuItem>
+        </MenuMenu>
+        <MenuMenu>
+          <MenuItem>
+            <h3
+              style={
+                Object {
+                  "marginLeft": "308px",
+                }
+              }
+            >
+              Your Shoppinglists
+            </h3>
+          </MenuItem>
+        </MenuMenu>
+        <MenuMenu
+          position="right"
+        >
+          <MenuItem>
+            <Input
+              icon="search"
+              name="word"
+              onChange={[Function]}
+              onKeyUp={[Function]}
+              placeholder="Search by name..."
+              type="text"
+            />
+          </MenuItem>
+        </MenuMenu>
+      </Menu>
+    </Segment>
+    <p>
+      No lists
+    </p>
+    <_class
+      id="alert"
+      options={Object {}}
+    />
+  </Container>
+</div>
+`;
+
+exports[`shoopinglists component should render correctly 1`] = `
+<div>
+  <Container>
+    <Segment>
+      <Menu
+        secondary={true}
+        style={
+          Object {
+            "backgroundColor": "black",
+          }
+        }
+      >
+        <MenuItem
+          name="SHOPPINGLIST"
+          style={
+            Object {
+              "color": "white",
+            }
+          }
+        />
+        <MenuMenu
+          position="right"
+        />
+      </Menu>
+    </Segment>
+    <Segment>
+      <Menu
+        secondary={true}
+      >
+        <MenuMenu>
+          <MenuItem>
+            <Popup
+              content="Add shoppinglist"
+              id="addshoppinglist"
+              on="hover"
+              position="top left"
+              trigger={
+                <Button
+                  as="button"
+                  icon="add"
+                  onClick={[Function]}
+                />
+              }
+            />
+          </MenuItem>
+        </MenuMenu>
+        <MenuMenu>
+          <MenuItem>
+            <h3
+              style={
+                Object {
+                  "marginLeft": "308px",
+                }
+              }
+            >
+              Your Shoppinglists
+            </h3>
+          </MenuItem>
+        </MenuMenu>
+        <MenuMenu
+          position="right"
+        >
+          <MenuItem>
+            <Input
+              icon="search"
+              name="word"
+              onChange={[Function]}
+              onKeyUp={[Function]}
+              placeholder="Search by name..."
+              type="text"
+            />
+          </MenuItem>
+        </MenuMenu>
+      </Menu>
+    </Segment>
+    <p>
+      No lists
+    </p>
+    <_class
+      id="alert"
+      options={Object {}}
+    />
+  </Container>
+</div>
+`;

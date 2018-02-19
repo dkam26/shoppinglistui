@@ -1,0 +1,229 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`items component should add item 1`] = `
+<div>
+  <Container>
+    <Segment>
+      <Menu
+        secondary={true}
+        style={
+          Object {
+            "backgroundColor": "black",
+          }
+        }
+      >
+        <MenuItem
+          name="SHOPPINGLIST"
+          style={
+            Object {
+              "color": "white",
+            }
+          }
+        />
+        <MenuMenu
+          position="right"
+        >
+          <MenuItem
+            name="logout"
+            style={
+              Object {
+                "color": "white",
+              }
+            }
+          />
+        </MenuMenu>
+      </Menu>
+    </Segment>
+    <Segment>
+      <Menu
+        secondary={true}
+      >
+        <MenuMenu>
+          <MenuItem>
+            <Popup
+              content="Add item"
+              id="addItem"
+              on="hover"
+              position="top left"
+              trigger={
+                <Button
+                  as="button"
+                  icon="add"
+                  onClick={[Function]}
+                />
+              }
+            />
+          </MenuItem>
+        </MenuMenu>
+        <MenuMenu>
+          <MenuItem>
+            <h3
+              style={
+                Object {
+                  "marginLeft": "308px",
+                }
+              }
+            >
+              Items in 
+               list
+            </h3>
+          </MenuItem>
+        </MenuMenu>
+        <MenuMenu
+          position="right"
+        >
+          <MenuItem>
+            <Input
+              icon="search"
+              name="word"
+              onChange={[Function]}
+              onKeyUp={[Function]}
+              placeholder="Search by name..."
+              type="text"
+            />
+          </MenuItem>
+        </MenuMenu>
+      </Menu>
+    </Segment>
+    <Segment>
+      <Menu
+        secondary={true}
+      >
+        <MenuMenu
+          position="right"
+        >
+          <MenuItem>
+            <Button
+              as="button"
+              content="Back"
+              icon="left chevron"
+              labelPosition="left"
+              onClick={[Function]}
+            />
+          </MenuItem>
+        </MenuMenu>
+      </Menu>
+    </Segment>
+    <p>
+      No items currently
+    </p>
+    <_class
+      options={Object {}}
+    />
+  </Container>
+</div>
+`;
+
+exports[`items component should render correctly 1`] = `
+<div>
+  <Container>
+    <Segment>
+      <Menu
+        secondary={true}
+        style={
+          Object {
+            "backgroundColor": "black",
+          }
+        }
+      >
+        <MenuItem
+          name="SHOPPINGLIST"
+          style={
+            Object {
+              "color": "white",
+            }
+          }
+        />
+        <MenuMenu
+          position="right"
+        >
+          <MenuItem
+            name="logout"
+            style={
+              Object {
+                "color": "white",
+              }
+            }
+          />
+        </MenuMenu>
+      </Menu>
+    </Segment>
+    <Segment>
+      <Menu
+        secondary={true}
+      >
+        <MenuMenu>
+          <MenuItem>
+            <Popup
+              content="Add item"
+              id="addItem"
+              on="hover"
+              position="top left"
+              trigger={
+                <Button
+                  as="button"
+                  icon="add"
+                  onClick={[Function]}
+                />
+              }
+            />
+          </MenuItem>
+        </MenuMenu>
+        <MenuMenu>
+          <MenuItem>
+            <h3
+              style={
+                Object {
+                  "marginLeft": "308px",
+                }
+              }
+            >
+              Items in 
+               list
+            </h3>
+          </MenuItem>
+        </MenuMenu>
+        <MenuMenu
+          position="right"
+        >
+          <MenuItem>
+            <Input
+              icon="search"
+              name="word"
+              onChange={[Function]}
+              onKeyUp={[Function]}
+              placeholder="Search by name..."
+              type="text"
+            />
+          </MenuItem>
+        </MenuMenu>
+      </Menu>
+    </Segment>
+    <Segment>
+      <Menu
+        secondary={true}
+      >
+        <MenuMenu
+          position="right"
+        >
+          <MenuItem>
+            <Button
+              as="button"
+              content="Back"
+              icon="left chevron"
+              labelPosition="left"
+              onClick={[Function]}
+            />
+          </MenuItem>
+        </MenuMenu>
+      </Menu>
+    </Segment>
+    <p>
+      No items currently
+    </p>
+    <_class
+      options={Object {}}
+    />
+  </Container>
+</div>
+`;

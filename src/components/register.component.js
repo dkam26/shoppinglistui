@@ -2,7 +2,8 @@ import React from 'react';
 import axios from 'axios';
 import {URL,history}  from '../config'
 import Notifications, {notify} from 'react-notify-toast';
-import { Icon,Button, Form, Grid, Header, Segment } from 'semantic-ui-react'
+import { Icon,Button, Form, Grid, Header, Segment } from 'semantic-ui-react';
+import {Redirect} from 'react-router-dom';
 export class Register extends React.Component{
     constructor() {
         super();
@@ -11,7 +12,8 @@ export class Register extends React.Component{
         email: '',
         password: '',
         surname: '',
-        firstname: ''
+        firstname: '',
+        home:false,
         }
     }
      //Function to get inputs from the form and set the state
@@ -20,7 +22,8 @@ export class Register extends React.Component{
     }
     //Function redirects user to the login page
     home=()=>{
-      history.push('/');
+      this.setState({home:true})
+
     }
     //Function registers user
     onSubmit = () => {
@@ -52,7 +55,9 @@ export class Register extends React.Component{
           });
     }
     render(){
-        return(    
+      if(this.state.home)
+        return <Redirect to='/'/>
+      return(    
     <div className='login-form'>
         <style>{`
       body > div,
@@ -118,7 +123,7 @@ export class Register extends React.Component{
                   onChange={e =>this.onChange(e)}
                   id= 'email'
                 />
-                <Button color='blue' fluid size='large' onClick={()=>this.onSubmit()} >Create Account</Button>
+                <Button color='blue' fluid size='large' onClick={()=>this.onSubmit()} id ='create'>Create Account</Button>
                 <div style={{padding:"17px"}}>
                 <Icon name="arrow circle outline left" size="large" onClick={()=>this.home()}/>Back
                 </div>

@@ -1,0 +1,460 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`add item component render the three inputs 1`] = `
+<div>
+  <Container>
+    <Segment>
+      <Menu
+        secondary={true}
+        style={
+          Object {
+            "backgroundColor": "black",
+          }
+        }
+      >
+        <MenuItem
+          name="SHOPPINGLIST"
+          style={
+            Object {
+              "color": "white",
+            }
+          }
+        />
+        <MenuMenu
+          position="right"
+        >
+          <MenuItem
+            name="logout"
+            style={
+              Object {
+                "color": "white",
+              }
+            }
+          />
+        </MenuMenu>
+      </Menu>
+    </Segment>
+    <Segment>
+      <Menu
+        secondary={true}
+      >
+        <MenuMenu>
+          <MenuItem />
+        </MenuMenu>
+        <MenuMenu>
+          <MenuItem>
+            <h3
+              style={
+                Object {
+                  "marginLeft": "308px",
+                }
+              }
+            >
+              Add new item
+            </h3>
+          </MenuItem>
+        </MenuMenu>
+        <MenuMenu
+          position="right"
+        >
+          <MenuItem>
+            <Button
+              as="button"
+              content="Back"
+              icon="left chevron"
+              labelPosition="left"
+              onClick={[Function]}
+            />
+          </MenuItem>
+        </MenuMenu>
+      </Menu>
+    </Segment>
+    <div
+      className="login-form"
+    >
+      <style>
+        
+      body &gt; div,
+      body &gt; div &gt; div,
+      body &gt; div &gt; div &gt; div.login-form {
+        height: 100%;
+      }
+    
+      </style>
+      <Grid
+        style={
+          Object {
+            "height": "100%",
+          }
+        }
+        textAlign="center"
+        verticalAlign="middle"
+      >
+        <GridColumn
+          style={
+            Object {
+              "maxWidth": 450,
+            }
+          }
+        >
+          <Form
+            as="form"
+            size="large"
+          >
+            <Segment
+              stacked={true}
+            >
+              <FormInput
+                as={[Function]}
+                control={[Function]}
+                fluid={true}
+                id="item"
+                name="item"
+                onChange={[Function]}
+                placeholder="item"
+                type="text"
+              />
+              <FormInput
+                as={[Function]}
+                control={[Function]}
+                fluid={true}
+                id="Quantity"
+                name="Quantity"
+                onChange={[Function]}
+                placeholder="Quantity"
+                type="number"
+              />
+              <FormInput
+                as={[Function]}
+                control={[Function]}
+                fluid={true}
+                id="Amountspent"
+                name="Amountspent"
+                onChange={[Function]}
+                placeholder="Amount spent"
+                type="number"
+              />
+              <Button
+                as="button"
+                color="blue"
+                fluid={true}
+                id="add"
+                onClick={[Function]}
+                size="large"
+              >
+                Add Item
+              </Button>
+            </Segment>
+          </Form>
+        </GridColumn>
+      </Grid>
+    </div>
+  </Container>
+</div>
+`;
+
+exports[`add item component should add item 1`] = `
+<div>
+  <Container>
+    <Segment>
+      <Menu
+        secondary={true}
+        style={
+          Object {
+            "backgroundColor": "black",
+          }
+        }
+      >
+        <MenuItem
+          name="SHOPPINGLIST"
+          style={
+            Object {
+              "color": "white",
+            }
+          }
+        />
+        <MenuMenu
+          position="right"
+        >
+          <MenuItem
+            name="logout"
+            style={
+              Object {
+                "color": "white",
+              }
+            }
+          />
+        </MenuMenu>
+      </Menu>
+    </Segment>
+    <Segment>
+      <Menu
+        secondary={true}
+      >
+        <MenuMenu>
+          <MenuItem />
+        </MenuMenu>
+        <MenuMenu>
+          <MenuItem>
+            <h3
+              style={
+                Object {
+                  "marginLeft": "308px",
+                }
+              }
+            >
+              Add new item
+            </h3>
+          </MenuItem>
+        </MenuMenu>
+        <MenuMenu
+          position="right"
+        >
+          <MenuItem>
+            <Button
+              as="button"
+              content="Back"
+              icon="left chevron"
+              labelPosition="left"
+              onClick={[Function]}
+            />
+          </MenuItem>
+        </MenuMenu>
+      </Menu>
+    </Segment>
+    <div
+      className="login-form"
+    >
+      <style>
+        
+      body &gt; div,
+      body &gt; div &gt; div,
+      body &gt; div &gt; div &gt; div.login-form {
+        height: 100%;
+      }
+    
+      </style>
+      <Grid
+        style={
+          Object {
+            "height": "100%",
+          }
+        }
+        textAlign="center"
+        verticalAlign="middle"
+      >
+        <GridColumn
+          style={
+            Object {
+              "maxWidth": 450,
+            }
+          }
+        >
+          <Form
+            as="form"
+            size="large"
+          >
+            <Segment
+              stacked={true}
+            >
+              <FormInput
+                as={[Function]}
+                control={[Function]}
+                fluid={true}
+                id="item"
+                name="item"
+                onChange={[Function]}
+                placeholder="item"
+                type="text"
+              />
+              <FormInput
+                as={[Function]}
+                control={[Function]}
+                fluid={true}
+                id="Quantity"
+                name="Quantity"
+                onChange={[Function]}
+                placeholder="Quantity"
+                type="number"
+              />
+              <FormInput
+                as={[Function]}
+                control={[Function]}
+                fluid={true}
+                id="Amountspent"
+                name="Amountspent"
+                onChange={[Function]}
+                placeholder="Amount spent"
+                type="number"
+              />
+              <Button
+                as="button"
+                color="blue"
+                fluid={true}
+                id="add"
+                onClick={[Function]}
+                size="large"
+              >
+                Add Item
+              </Button>
+            </Segment>
+          </Form>
+        </GridColumn>
+      </Grid>
+    </div>
+  </Container>
+</div>
+`;
+
+exports[`add item component should render correctly 1`] = `
+<div>
+  <Container>
+    <Segment>
+      <Menu
+        secondary={true}
+        style={
+          Object {
+            "backgroundColor": "black",
+          }
+        }
+      >
+        <MenuItem
+          name="SHOPPINGLIST"
+          style={
+            Object {
+              "color": "white",
+            }
+          }
+        />
+        <MenuMenu
+          position="right"
+        >
+          <MenuItem
+            name="logout"
+            style={
+              Object {
+                "color": "white",
+              }
+            }
+          />
+        </MenuMenu>
+      </Menu>
+    </Segment>
+    <Segment>
+      <Menu
+        secondary={true}
+      >
+        <MenuMenu>
+          <MenuItem />
+        </MenuMenu>
+        <MenuMenu>
+          <MenuItem>
+            <h3
+              style={
+                Object {
+                  "marginLeft": "308px",
+                }
+              }
+            >
+              Add new item
+            </h3>
+          </MenuItem>
+        </MenuMenu>
+        <MenuMenu
+          position="right"
+        >
+          <MenuItem>
+            <Button
+              as="button"
+              content="Back"
+              icon="left chevron"
+              labelPosition="left"
+              onClick={[Function]}
+            />
+          </MenuItem>
+        </MenuMenu>
+      </Menu>
+    </Segment>
+    <div
+      className="login-form"
+    >
+      <style>
+        
+      body &gt; div,
+      body &gt; div &gt; div,
+      body &gt; div &gt; div &gt; div.login-form {
+        height: 100%;
+      }
+    
+      </style>
+      <Grid
+        style={
+          Object {
+            "height": "100%",
+          }
+        }
+        textAlign="center"
+        verticalAlign="middle"
+      >
+        <GridColumn
+          style={
+            Object {
+              "maxWidth": 450,
+            }
+          }
+        >
+          <Form
+            as="form"
+            size="large"
+          >
+            <Segment
+              stacked={true}
+            >
+              <FormInput
+                as={[Function]}
+                control={[Function]}
+                fluid={true}
+                id="item"
+                name="item"
+                onChange={[Function]}
+                placeholder="item"
+                type="text"
+              />
+              <FormInput
+                as={[Function]}
+                control={[Function]}
+                fluid={true}
+                id="Quantity"
+                name="Quantity"
+                onChange={[Function]}
+                placeholder="Quantity"
+                type="number"
+              />
+              <FormInput
+                as={[Function]}
+                control={[Function]}
+                fluid={true}
+                id="Amountspent"
+                name="Amountspent"
+                onChange={[Function]}
+                placeholder="Amount spent"
+                type="number"
+              />
+              <Button
+                as="button"
+                color="blue"
+                fluid={true}
+                id="add"
+                onClick={[Function]}
+                size="large"
+              >
+                Add Item
+              </Button>
+            </Segment>
+          </Form>
+        </GridColumn>
+      </Grid>
+    </div>
+  </Container>
+</div>
+`;

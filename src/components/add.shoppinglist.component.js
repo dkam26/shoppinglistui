@@ -3,20 +3,23 @@ import axios from 'axios';
 import {URL,history}  from '../config'
 import { Button, Menu ,Container,Segment,Form, Grid} from 'semantic-ui-react';
 import Notifications, {notify} from 'react-notify-toast';
+import {Redirect} from 'react-router-dom';
 class Addshoppinglist extends React.Component{
     state = {
         shoppinglist: '',
+        home:false,
+        shoppinglists:false
         }
     //Function called before component is rendered.It verifies if user is login
-    componentDidMount(){
+    componentWillMount(){
             if(!localStorage.getItem('token')&& !localStorage.getItem('user')){
-                history.push('/');
+                this.setState({redirect:true})
     
             }
         }
     //Returns user to the shoppinglist page
     getLists =()=>{
-            history.push('/shoppinglists')
+            this.setState({shoppinglists:true})
         }
     onChange = (e) => {
             this.setState({shoppinglist : e.target.value,})
@@ -46,7 +49,10 @@ class Addshoppinglist extends React.Component{
               });
         }
     render(){
-        
+        if(this.state.home)
+            return <Redirect to='/'/>
+        if(this.state.shoppinglists)
+            return <Redirect to='/shoppinglists'/>
         return(
             <div >
                <Container>
@@ -71,7 +77,7 @@ class Addshoppinglist extends React.Component{
                                         </Menu.Menu>
                                         <Menu.Menu position='right'>
                                         <Menu.Item>
-                                            <Button labelPosition='left' icon='left chevron' content='Back' onClick={()=>this.getLists()} />
+                                            <Button labelPosition='left' icon='left chevron' content='Back' onClick={()=>this.getLists()} id ='addShoppinglist'/>
                                             </Menu.Item> 
                                         
                                         </Menu.Menu>
@@ -98,6 +104,7 @@ class Addshoppinglist extends React.Component{
                   name='shoppinglist'
                   placeholder='shoppinglist'
                   onChange={e =>this.onChange(e)}
+                  id = 'shoppingst' 
                 />
                 <Button color='blue' fluid size='large' onClick={()=>this.onSubmit()} >Create shoppinglist</Button>
               </Segment>

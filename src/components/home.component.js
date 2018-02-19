@@ -1,9 +1,14 @@
 import React from 'react';
 import axios from 'axios';
 import Notifications, {notify} from 'react-notify-toast';
-import {URL,history}  from '../config'
+import {URL}  from '../config'
 import { Button, Form, Grid, Header, Message, Segment } from 'semantic-ui-react'
+import {Redirect} from 'react-router-dom'
 class Login extends React.Component{
+  constructor(props){
+    super(props)
+    this.state={redirect:false}
+  }
   //Function to get inputs from the form and set the state
     onChange = (e) => {
             this.setState({[e.target.name] : e.target.value,})
@@ -19,7 +24,7 @@ class Login extends React.Component{
                 if(response.data.token){
                     localStorage.setItem('token', response.data.token)
                     localStorage.setItem('user', response.data.Welcome)
-                    history.push('/shoppinglists')
+                    this.setState({redirect:true})
                 }if(response.data['Error'] === '401'){ 
                   
                   notify.show("Valid username or password", "custom", 5000, myColor)
@@ -35,9 +40,13 @@ class Login extends React.Component{
         }
     
     render(){
-        return(
-        <div className='login-form'>
-        <style>{`
+      if(this.state.redirect){
+        return <Redirect to='/shoppinglists'/>
+      }
+
+      return(
+      <div className='login-form'>
+      <style>{`
       body > div,
       body > div > div,
       body > div > div > div.login-form {
@@ -62,6 +71,7 @@ class Login extends React.Component{
                   iconPosition='left'
                   placeholder='Username'
                   onChange={e =>this.onChange(e)}
+                  id = 'username'
                 />
                 <Form.Input
                   fluid
@@ -70,6 +80,7 @@ class Login extends React.Component{
                   placeholder='Password'
                   type='password'
                   name='password'
+                  id = 'password'
                   onChange={e =>this.onChange(e)}
                  />
     

@@ -1,5 +1,6 @@
 {
   "name": "shoppinglistui",
+  
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -44,10 +45,5 @@
     "react-addons-test-utils": "^15.6.2",
     "react-test-renderer": "^15.6.2",
     "webpack": "^3.10.0"
-  },
-  "jest": {
-    "transform": {
-      "^.+\\.jsx?$": "babel-jest"
-    }
   }
 }

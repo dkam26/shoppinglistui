@@ -1,0 +1,150 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`add shoopinglists component render the one input 1`] = `
+<Redirect
+  push={false}
+  to="/shoppinglists"
+/>
+`;
+
+exports[`add shoopinglists component should add list 1`] = `
+<Redirect
+  push={false}
+  to="/shoppinglists"
+/>
+`;
+
+exports[`add shoopinglists component should render correctly 1`] = `
+<div>
+  <Container>
+    <Segment>
+      <Menu
+        secondary={true}
+        style={
+          Object {
+            "backgroundColor": "black",
+          }
+        }
+      >
+        <MenuItem
+          name="SHOPPINGLIST"
+          style={
+            Object {
+              "color": "white",
+            }
+          }
+        />
+        <MenuMenu
+          position="right"
+        >
+          <MenuItem
+            name="logout"
+            style={
+              Object {
+                "color": "white",
+              }
+            }
+          />
+        </MenuMenu>
+      </Menu>
+    </Segment>
+    <Segment>
+      <Menu
+        secondary={true}
+      >
+        <MenuMenu>
+          <MenuItem />
+        </MenuMenu>
+        <MenuMenu>
+          <MenuItem>
+            <h3
+              style={
+                Object {
+                  "marginLeft": "308px",
+                }
+              }
+            >
+              Add new Shoppinglist
+            </h3>
+          </MenuItem>
+        </MenuMenu>
+        <MenuMenu
+          position="right"
+        >
+          <MenuItem>
+            <Button
+              as="button"
+              content="Back"
+              icon="left chevron"
+              id="addShoppinglist"
+              labelPosition="left"
+              onClick={[Function]}
+            />
+          </MenuItem>
+        </MenuMenu>
+      </Menu>
+    </Segment>
+    <div
+      className="login-form"
+    >
+      <style>
+        
+      body &gt; div,
+      body &gt; div &gt; div,
+      body &gt; div &gt; div &gt; div.login-form {
+        height: 100%;
+      }
+    
+      </style>
+      <Grid
+        style={
+          Object {
+            "height": "100%",
+          }
+        }
+        textAlign="center"
+        verticalAlign="middle"
+      >
+        <GridColumn
+          style={
+            Object {
+              "maxWidth": 450,
+            }
+          }
+        >
+          <Form
+            as="form"
+            size="large"
+          >
+            <Segment
+              stacked={true}
+            >
+              <FormInput
+                as={[Function]}
+                control={[Function]}
+                fluid={true}
+                id="shoppingst"
+                name="shoppinglist"
+                onChange={[Function]}
+                placeholder="shoppinglist"
+              />
+              <Button
+                as="button"
+                color="blue"
+                fluid={true}
+                onClick={[Function]}
+                size="large"
+              >
+                Create shoppinglist
+              </Button>
+            </Segment>
+          </Form>
+        </GridColumn>
+      </Grid>
+    </div>
+  </Container>
+  <_class
+    options={Object {}}
+  />
+</div>
+`;

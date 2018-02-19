@@ -1,8 +1,9 @@
 import React from 'react';
 import axios from 'axios';
-import {URL,history}  from '../config'
+import {URL}  from '../config'
 import { Pagination,Button,List, Menu ,Container,Segment,Popup,Input} from 'semantic-ui-react';
 import Notifications, {notify} from 'react-notify-toast';
+import {Redirect} from 'react-router-dom';
 class Shoppinglists extends React.Component{
     constructor(props) {
         super(props);
@@ -11,6 +12,12 @@ class Shoppinglists extends React.Component{
             word:'',
             activePage: 1,
             totalPages:1,
+            home:false,
+            items:false,
+            list:false,
+            addshoppinglist:false,
+            editshoppinglist:false,
+            userlists:false
         };
         
     }
@@ -55,20 +62,17 @@ class Shoppinglists extends React.Component{
                 console.log(error);
               }); 
     }
-    //Function called before component is rendered.It verifies if user is login
-    componentDidMount(){
-         if(!localStorage.getItem('token')&& !localStorage.getItem('user')){
-        history.push('/');
-
-        }else{
-            this.fetchList();
-        }
-    
-   
+    //Function called before component is rendered.It verifies if user is logged in
+    componentWillMount(){
+        if (!localStorage.getItem('token') && !localStorage.getItem('user'))
+            this.setState({redirect:true})
+        else
+            this.fetchList();      
     }
     //Function redirects user to edit shoopinglist name
     editList =(shoppinglist)=>{
-        history.push('/editshoppinglist/'+shoppinglist);
+        this.setState({editshoppinglist:true})
+        this.setState({list:shoppinglist})
     }
     //Function enables deleting a shoppinglist
     DeleteList =(shoppinglist)=>{ 
@@ -81,7 +85,8 @@ class Shoppinglists extends React.Component{
           .then((response) => {
             let myColor = { background: 'red', text: "#FFFFFF" };
             notify.show("Shoppinglist deleted", "custom", 5000, myColor)
-            history.push('/shoppinglists'); 
+           
+           
             
             
           })
@@ -90,52 +95,58 @@ class Shoppinglists extends React.Component{
           }); 
         }   
          else {
-            history.push('/');
+            this.setState({redirect:true})
           } 
   
     }
     //Function redirects user to add a new shoopinglist
     addList =()=>{
-        let url = "/addshoppinglist/"
-        history.push(url);
+        this.setState({addshoppinglist:true})
     }
     //Function returns the items of a shoppinglist
     getItems =(shoppinglist)=>{
-        let url = "/items/"+shoppinglist
-        history.push(url);
+        this.setState({list:shoppinglist})
+        this.setState({items:true})
     }
     //Render function
     render(){
+        if(this.state.home)
+            return <Redirect to='/'/>
+        if(this.state.items)
+            return <Redirect to={'/items/'+this.state.list}/> 
+        if(this.state.addshoppinglist)
+            return <Redirect to='/addshoppinglist/'/> 
+        if(this.state.editshoppinglist)
+            return <Redirect to={'/editshoppinglist/'+this.state.list}/> 
+       
         const { activePage } = this.state
-        return(
-        <div >
-           
-        <Container>
-            <Segment>
-                <Menu secondary style={{backgroundColor:"black"}}>
-                    <Menu.Item name='SHOPPINGLIST' style={{color:"white"}}/>
-                    <Menu.Menu position='right'>
-                       
-                    </Menu.Menu>
-                </Menu>
-             </Segment>
-            <Segment>
-                    <Menu secondary >
-                                <Menu.Menu >
-                                    <Menu.Item>
-                                    <Popup
-                                        trigger={<Button icon='add' onClick={()=>this.addList()} />}
-                                         content='Add shoppinglist'
-
-                                    />
-                                    </Menu.Item>
-                                </Menu.Menu>
-                                <Menu.Menu  >
-                                    <Menu.Item >
-                                    <h3 style={{marginLeft:"308px"}}>Your Shoppinglists</h3>
-                                    </Menu.Item>
-                                </Menu.Menu>
-                                <Menu.Menu position='right'>
+        return (
+        <div>  
+            <Container>
+                <Segment>
+                    <Menu secondary style={{backgroundColor:"black"}}>
+                        <Menu.Item name='SHOPPINGLIST' style={{color:"white"}}/>
+                        <Menu.Menu position='right'>
+                        </Menu.Menu>
+                    </Menu>
+                </Segment>
+                <Segment>
+                    <Menu secondary>
+                        <Menu.Menu>
+                            <Menu.Item>
+                                <Popup
+                                    trigger={<Button icon='add' onClick={()=>this.addList()} />}
+                                    content='Add shoppinglist'
+                                    id = 'addshoppinglist'
+                                />
+                            </Menu.Item>
+                        </Menu.Menu>
+                        <Menu.Menu>
+                            <Menu.Item >
+                                <h3 style={{marginLeft:"308px"}}>Your Shoppinglists</h3>
+                            </Menu.Item>
+                        </Menu.Menu>
+                            <Menu.Menu position='right'>
                                 <Menu.Item>
                                 <Input name="word" icon='search' placeholder='Search by name...' onChange={this.onChange} onKeyUp={this.handleKeyup}/>
                                     </Menu.Item> 
@@ -179,7 +190,7 @@ class Shoppinglists extends React.Component{
             )
             :<p>No lists</p>
         }
-        <Notifications />
+        <Notifications id ='alert'/>
     </Container>
         </div>
        
