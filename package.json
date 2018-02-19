@@ -10,6 +10,7 @@
     "define-property": "^2.0.2",
     "history": "^4.7.2",
     "jest-cli": "^22.3.0",
+    "jest-util": "^22.3.0",
     "lodash": "^4.17.5",
     "lodash._basecopy": "^3.0.1",
     "lodash._basetostring": "^4.12.0",
