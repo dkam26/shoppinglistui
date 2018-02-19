@@ -9,8 +9,13 @@ import LocalStorageMock from '../setupTests';
 import ReactDOM from 'react-dom';
 configure({ adapter: new Adapter() });
 describe('edit shoopinglists component', () => {
-    
-     const wrapper =  shallow(<Editshoppinglist />);
+    const props={
+        getshoppinglist:()=>{},
+        match:{
+            params:{}
+            }
+    }
+     const wrapper =  shallow(<Editshoppinglist  {...props}/>);
     it('should run', () => {
         expect(wrapper.exists(<div></div>)).toBe(true);
     });
@@ -26,5 +31,8 @@ describe('edit shoopinglists component', () => {
             const div = document.createElement('div');
             ReactDOM.render(<Editshoppinglist />, div);
         });   
-      
+    it('should ve the following methods',()=>{
+            wrapper.instance().getshoppinglist();
+           
+        });
 })

@@ -7,37 +7,35 @@ import Adapter from 'enzyme-adapter-react-15';
 import  toJson,{ shallowToJson } from 'enzyme-to-json';
 import LocalStorageMock from '../setupTests';
 import ReactDOM from 'react-dom';
+import {Button,Form} from 'semantic-ui-react';
 configure({ adapter: new Adapter() });
 describe('edit item component', () => {
     const props={
-        
-        componentWillMount:()=>{}
+        getItem:()=>{},
+        componentWillMount:()=>{},
+        match:{
+            params:{}
+            }
     }
-    const wrapper =  shallow(<EditItem  />);
+    const wrapper =  shallow(<EditItem {...props} />);
     it('should run', () => {
         expect(wrapper.exists(<div></div>)).toBe(true);
     });
     it('should render correctly', () => {
-        const output = shallow( <EditItem  />);
-        expect(shallowToJson(output)).toMatchSnapshot();
+        expect(shallowToJson(wrapper)).toMatchSnapshot();
         });
     it('should edit item',()=>{
-            wrapper.find('#editItem').simulate('click')
-            expect(toJson(wrapper)).toMatchSnapshot();
-           
-            
+            expect(wrapper.find(<Button id='editItem'></Button>));
+    
         });
-    it('renders without crashing', () => {
-            const div = document.createElement('div');
-            ReactDOM.render(<EditItem />, div);
-        }); 
+   
     it('should ve the following methods',()=>{
             wrapper.instance().componentWillMount();
-           
+            wrapper.instance().getItem();
         });
     it('render the two inputs', () =>{
-            expect(wrapper.find("#newamount")).toHaveLength(1);
-            expect(wrapper.find("#newquantity")).toHaveLength(1);
+            expect(wrapper.find(<Form.Input id="newamount"/>));
+            expect(wrapper.find(<Form.Input id="newquantity"/>));
             expect(shallowToJson(wrapper)).toMatchSnapshot();
         });
 })

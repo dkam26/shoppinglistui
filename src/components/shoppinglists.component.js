@@ -14,7 +14,7 @@ class Shoppinglists extends React.Component{
             totalPages:1,
             home:false,
             items:false,
-            list:false,
+            list:'',
             addshoppinglist:false,
             editshoppinglist:false,
             userlists:false
@@ -105,8 +105,8 @@ class Shoppinglists extends React.Component{
     }
     //Function returns the items of a shoppinglist
     getItems =(shoppinglist)=>{
-        this.setState({list:shoppinglist})
-        this.setState({items:true})
+        this.setState({list:shoppinglist,items:true})
+
     }
     //Render function
     render(){

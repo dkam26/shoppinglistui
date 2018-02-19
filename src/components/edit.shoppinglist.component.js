@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from 'axios';
-import {URL,history}  from '../config'
+import {URL}  from '../config'
 import { Button, Menu ,Container,Segment,Form, Grid} from 'semantic-ui-react';
 import Notifications, {notify} from 'react-notify-toast';
 import {Redirect} from 'react-router-dom';
@@ -11,6 +11,7 @@ class Editshoppinglist extends React.Component{
             shoppinglist:'',
             prevName:'',
             home:false,
+            lists:false
         }
     }
     //Sets the state of the shoppinglist
@@ -20,7 +21,6 @@ class Editshoppinglist extends React.Component{
             shoppinglist:this.props.match.params.name
 
         });
-        console.log(this.state.prevName)
     }
     onChange = (e) => {
         this.setState({[e.target.name] : e.target.value,})
@@ -42,7 +42,7 @@ class Editshoppinglist extends React.Component{
             }if(response.data['Success']==='200'){
                 let myColor = { background: 'red', text: "#FFFFFF" };
                 notify.show("Shoppinglist updated", "custom", 5000, myColor)
-                history.push('/shoppinglists');
+                this.setState({lists:true})
             }
             
             
@@ -65,13 +65,16 @@ class Editshoppinglist extends React.Component{
     }
     //Returns user to shoppinglists page
     getLists=()=>{
-        history.push('/shoppinglists');
+        this.setState({lists:true})
+    
     }
 
 
     render(){
         if(this.state.home)
             return <Redirect to='/'/>
+        if(this.state.lists)
+        return <Redirect to='/shoppinglists'/>
         return(
                   
         <div>

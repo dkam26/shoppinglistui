@@ -13,8 +13,12 @@ describe('items component', () => {
     const props={
         constructor :()=>{},
         render:()=>{},
+        fetchItems:()=>{},
+        match:{
+            params:{}
+            }
     }
-    const wrapper =  shallow(<Items />);
+    const wrapper =  shallow(<Items {...props} />);
      it('should run', () => {
         expect(wrapper.exists(<div></div>)).toBe(true);
     }); 
@@ -30,5 +34,8 @@ describe('items component', () => {
             const div = document.createElement('div');
             ReactDOM.render(<Items />, div);
         });  
-  
+    it('should ve the following methods',()=>{
+            wrapper.instance().fetchItems();
+           
+        });
 })

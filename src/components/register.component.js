@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from 'axios';
-import {URL,history}  from '../config'
+import {URL}  from '../config'
 import Notifications, {notify} from 'react-notify-toast';
 import { Icon,Button, Form, Grid, Header, Segment } from 'semantic-ui-react';
 import {Redirect} from 'react-router-dom';
@@ -39,7 +39,7 @@ export class Register extends React.Component{
             let myColor = { background: 'red', text: "#FFFFFF" };
               if(response.data['Success']==='200')
               {
-                history.push('/');  
+                this.setState({home:true}) 
               }if(response.data['Error'] ==='403'){
                 notify.show("User exists", "custom", 5000, myColor)
               }if(response.data['Error'] ==='404'){

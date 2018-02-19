@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from 'axios';
-import {URL,history}  from '../config'
+import {URL}  from '../config'
 import { Button, Menu ,Container,Segment,Form, Grid} from 'semantic-ui-react';
 import Notifications, {notify} from 'react-notify-toast';
 import {Redirect} from 'react-router-dom';
@@ -15,6 +15,8 @@ class EditItem extends React.Component{
             prevAmount:'',
             prevQuantity:'',
             home:false,
+            goods:false,
+            list:''
         }
     }
     //Sets the state of the product,newamount,newquantity
@@ -28,12 +30,11 @@ class EditItem extends React.Component{
             newquantity:this.props.match.params.quantity
         });
         
-        console.log(this.state.newamount)
     }
      //Function called before component is rendered.It verifies if user is login
     componentWillMount(){
         if(!localStorage.getItem('token')&& !localStorage.getItem('user')){
-            this.setState({redirect:true})
+            this.setState({home:true})
 
         }else{
             this.getItem();
@@ -41,14 +42,12 @@ class EditItem extends React.Component{
     }
   
     onChange = (e) => {
-    console.log(this.state.newquantity)
      this.setState({[e.target.name] : e.target.value,})
         
     }
     //Returns user to the items page
     getLists=(shoppinglist)=>{
-        let url = "/items/"+shoppinglist
-        history.push(url);
+        this.setState({goods:true})
     }
      //Enables the editing of a item name
      onSubmit =() => {
@@ -65,8 +64,8 @@ class EditItem extends React.Component{
                 notify.show("Quantity or Amountspent cant be negative values", "custom", 5000, myColor)
             }if(response.data["Success"]==="200"){
                 let myColor = { background: 'red', text: "#FFFFFF" };
-                notify.show("Item updated", "custom", 5000, myColor)
-                history.push('/items/'+this.state.shoplist);
+                notify.show("Item updated", "custom", 5, myColor)
+                this.setState({goods:true})
             } if(response.data["Error"]==="400"){
                 let myColor = { background: 'red', text: "#FFFFFF" };
                 notify.show("Invalid input", "custom", 5000, myColor)
@@ -80,7 +79,11 @@ class EditItem extends React.Component{
     }
     render(){
         if(this.state.home)
-            return <Redirect to='/'/>
+            return<div> 
+                    <Redirect to='/'/>
+                    </div>
+        if(this.state.goods)
+           return <div><Redirect to={'/items/'+this.state.shoplist}/> </div>
         return(
             <div>
             <Container>

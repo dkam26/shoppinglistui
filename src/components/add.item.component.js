@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from 'axios';
-import {URL,history}  from '../config'
+import {URL}  from '../config'
 import { Button, Menu ,Container,Segment,Form, Grid} from 'semantic-ui-react';
 import {Redirect} from 'react-router-dom';
 class AddItem extends React.Component{
@@ -12,14 +12,15 @@ class AddItem extends React.Component{
         Amountspent: '',
         home:false,
         shoplist:'',
-        shoppinglists:false
+        shoppinglists:false,
+        items:false,
         }
     
     }
     //Function called before component is rendered.It verifies if user is login
     componentDidMount(){
             if(!localStorage.getItem('token')&& !localStorage.getItem('user')){
-                this.setState({redirect:true})
+                this.setState({home:true})
     
             }else{
                 this.setState({shoplist:this.props.match.params.name })  
@@ -46,9 +47,8 @@ class AddItem extends React.Component{
                 }}
            
          )
-              .then(function (response) {
-                let url = '/items/'+this.state.shoplist;
-                 history.push(url);  
+              .then( (response)=> {
+                this.setState({items:true})
               })
               .catch(function (error) {
                 console.log(error);
@@ -56,9 +56,13 @@ class AddItem extends React.Component{
         }
     render(){
         if(this.state.home)
-            return <Redirect to='/'/>
+            return<div> 
+                    <Redirect to='/'/>
+                    </div>
         if(this.state.shoppinglists)
             return <Redirect to='/shoppinglists'/>
+        if(this.state.items)
+            return <Redirect to={'/items/'+this.state.shoplist}/>
         return(
             <div >
                <Container>

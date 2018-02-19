@@ -1,15 +1,19 @@
 import React from 'react';
 import axios from 'axios';
-import {URL,history}  from '../config'
+import {URL}  from '../config'
 import { Button, Menu ,Container,Segment,Form, Grid} from 'semantic-ui-react';
 import Notifications, {notify} from 'react-notify-toast';
 import {Redirect} from 'react-router-dom';
 class Addshoppinglist extends React.Component{
-    state = {
-        shoppinglist: '',
-        home:false,
-        shoppinglists:false
+    constructor(props) {
+        super(props);
+        this.state = {
+            shoppinglist: '',
+            home:false,
+            shoppinglists:false,
+            shop:false,
         }
+    }
     //Function called before component is rendered.It verifies if user is login
     componentWillMount(){
             if(!localStorage.getItem('token')&& !localStorage.getItem('user')){
@@ -32,17 +36,14 @@ class Addshoppinglist extends React.Component{
            }}
             
          )
-              .then(function (response) {
+              .then((response)=> {
                 let myColor = { background: 'red', text: "#FFFFFF" };
-                  if(response.data['Error'] === '404')
-                  {
+                if(response.data['Error'] === '404')
                     notify.show("No new list name included", "custom", 5000, myColor)
-                  }if(response.data['Error'] === '403'){
+                if(response.data['Error'] === '403')
                     notify.show("lists exists", "custom", 5000, myColor)
-                  }if(response.data['Error'] === '200'){
-                    history.push('/shoppinglists'); 
-                  }
-                     
+                if(response.data['Success'] === '200')
+                    this.setState({shop:true})       
               })
               .catch(function (error) {
                 console.log(error);
@@ -52,6 +53,8 @@ class Addshoppinglist extends React.Component{
         if(this.state.home)
             return <Redirect to='/'/>
         if(this.state.shoppinglists)
+            return <Redirect to='/shoppinglists'/>
+        if(this.state.shop)
             return <Redirect to='/shoppinglists'/>
         return(
             <div >

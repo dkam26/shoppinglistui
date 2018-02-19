@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from 'axios';
-import {URL,history}  from '../config'
+import {URL}  from '../config'
 import Notifications, {notify} from 'react-notify-toast';
 import { Pagination,Button,List,Input, Menu ,Container,Segment,Popup} from 'semantic-ui-react';
 import {Redirect} from 'react-router-dom';
@@ -14,6 +14,14 @@ class Items extends React.Component{
             activePage: 1,
             totalPages:1,
             home:false,
+            shop:false,
+            addGood:false,
+            shoppinglist:'',
+            editGood:false,
+            product:'',
+            amount:'',
+            quan:'',
+            deleteGood:false
         }
     }
      //implementation of pagination
@@ -52,9 +60,9 @@ class Items extends React.Component{
     }
       //Function queries items for a given shoppinglist
     fetchItems = () => {
-       
-        this.setState({shoplist: shoplist});
-        axios.get(URL+'shoppinglist/'+shoplist+'?page_number='+this.state.activePage, {
+        this.setState({shoplist:this.props.match.params.name})
+        let shopplist= this.props.match.params.name
+        axios.get(URL+'shoppinglist/'+shopplist+'?page_number='+this.state.activePage, {
             headers: {'x-access-token': localStorage.getItem('token'),
             
         }
@@ -63,7 +71,7 @@ class Items extends React.Component{
             console.log(response.data['pages'])
             this.setState({totalPages:response.data['pages']})
             this.setState({items: response.data['Products']});
-            
+            this.setState({shoplist:this.props.match.params.name})
           })
           .catch(function (error) {
             console.log(error);
@@ -72,10 +80,12 @@ class Items extends React.Component{
 }
 //Function redirects user to edit shoopinglist item
 editItem =(shoppinglist)=>{
-    history.push('/editItem/'+this.state.shoplist+
-                '/'+shoppinglist.Product+
-                '/'+shoppinglist.Amountspent+
-                '/'+shoppinglist.Quantity);
+    this.setState({
+                editGood:true,
+                product:shoppinglist.Product,
+                quan:shoppinglist.Quantity,
+                amount:shoppinglist.Amountspent
+            })
 }
  //Function enables deleting a shoppinglist item
 DeleteItem =(shoppinglist)=>{   
@@ -88,10 +98,7 @@ DeleteItem =(shoppinglist)=>{
      })
      .then((response) => {
         let myColor = { background: 'red', text: "#FFFFFF" };
-        notify.show("Item deleted ", "custom", 5000, myColor)
-       history.push('/items/'+ this.state.shoplist); 
-       
-       
+        notify.show("Item deleted ", "custom", 5000, myColor)       
      })
      .catch(function (error) {
        console.log(error);
@@ -99,16 +106,27 @@ DeleteItem =(shoppinglist)=>{
 }
 //Returns user to shoppinglists page
 getLists =()=>{
-    history.push('/shoppinglists')
+    this.setState({shop:true})
 }
 //Enables user to add items
 addItem =()=>{
-    let url = "/addItem/"+this.props.match.params.name;
-    history.push(url);
+    this.setState({addGood:true})
+    this.setState({shoppinglist:this.props.match.params.name})
 }
 render(){
+    
     if(this.state.home)
         return <Redirect to='/'/>
+    if(this.state.shop)
+        return <Redirect to='/shoppinglists'/>
+    if(this.state.addGood)
+        return <Redirect to={'/addItem/'+this.state.shoppinglist}/>
+    if(this.state.editGood)
+        return <Redirect to={'/editItem/'+this.state.shoplist+
+                            '/'+this.state.product+
+                            '/'+this.state.amount+
+                            '/'+this.state.quan}/>
+   
     const { activePage } = this.state
     return(
         
