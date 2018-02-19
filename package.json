@@ -1,6 +1,5 @@
 {
   "name": "shoppinglistui",
-  
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -11,6 +10,7 @@
     "gulp": "^3.9.1",
     "gulp-install": "^1.1.0",
     "history": "^4.7.2",
+    "jest-cli": "^22.3.0",
     "material-ui": "^0.20.0",
     "react": "^15.6.2",
     "react-addons-test-utils": "^15.6.2",
