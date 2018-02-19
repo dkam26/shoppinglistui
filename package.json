@@ -34,7 +34,8 @@
     "react-tap-event-plugin": "^3.0.2",
     "redux": "^3.7.2",
     "semantic-ui-react": "^0.78.2",
-    "to-regex": "^3.0.1"
+    "to-regex": "^3.0.1",
+    "webpack": "^3.10.0"
   },
   "scripts": {
     "start": "react-scripts start",
