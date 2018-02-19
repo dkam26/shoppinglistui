@@ -9,6 +9,10 @@ import LocalStorageMock from '../setupTests';
 import ReactDOM from 'react-dom';
 configure({ adapter: new Adapter() });
 describe('edit item component', () => {
+    const props={
+        
+        componentWillMount:()=>{}
+    }
     const wrapper =  shallow(<EditItem  />);
     it('should run', () => {
         expect(wrapper.exists(<div></div>)).toBe(true);
@@ -27,5 +31,8 @@ describe('edit item component', () => {
             const div = document.createElement('div');
             ReactDOM.render(<EditItem />, div);
         }); 
-    
+    it('should ve the following methods',()=>{
+            wrapper.instance().componentWillMount();
+           
+           });
 })

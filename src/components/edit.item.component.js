@@ -31,7 +31,7 @@ class EditItem extends React.Component{
         console.log(this.state.newamount)
     }
      //Function called before component is rendered.It verifies if user is login
-    componentDidMount(){
+    componentWillMount(){
         if(!localStorage.getItem('token')&& !localStorage.getItem('user')){
             this.setState({redirect:true})
 
