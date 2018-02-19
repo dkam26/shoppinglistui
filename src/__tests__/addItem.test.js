@@ -12,7 +12,8 @@ configure({ adapter: new Adapter() });
 describe('add item component', () => {
     const props={
         getLists:()=>{},
-        componentDidMount:()=>{}
+        componentDidMount:()=>{},
+        onSubmit:()=>{}
     }
     const wrapper =  shallow(<AddItem />);
     it('should run', () => {
@@ -46,7 +47,7 @@ describe('add item component', () => {
     it('should ve the following methods',()=>{
             wrapper.instance().getLists();
             wrapper.instance().componentDidMount();
-           
+            wrapper.instance().onSubmit();
            });
   
 })

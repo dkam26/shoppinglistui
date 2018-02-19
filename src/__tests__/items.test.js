@@ -14,9 +14,14 @@ describe('items component', () => {
         constructor :()=>{},
         render:()=>{},
         fetchItems:()=>{},
+        editItem:()=>{},
+        DeleteItem:()=>{},
+        getLists:()=>{},
+        addItem:()=>{},
         match:{
             params:{}
-            }
+            },
+        shoppinglist:{Product:'item',Quantity:'45',Amountspent:'455'}
     }
     const wrapper =  shallow(<Items {...props} />);
      it('should run', () => {
@@ -36,6 +41,9 @@ describe('items component', () => {
         });  
     it('should ve the following methods',()=>{
             wrapper.instance().fetchItems();
-           
+            wrapper.instance().editItem(props.shoppinglist);
+            wrapper.instance().DeleteItem(props.shoppinglist);
+            wrapper.instance().getLists();
+            wrapper.instance().addItem();
         });
 })

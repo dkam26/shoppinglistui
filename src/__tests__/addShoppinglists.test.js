@@ -11,7 +11,8 @@ configure({ adapter: new Adapter() });
 describe('add shoopinglists component', () => {
     const props={
         getLists:()=>{},
-        componentWillMount:()=>{}
+        componentWillMount:()=>{},
+        onSubmit :()=>{}
     }
     const wrapper =  shallow(<Addshoppinglist />);
     const preventDefault = jest.fn();
@@ -45,6 +46,6 @@ describe('add shoopinglists component', () => {
     it('should ve the following methods',()=>{
             wrapper.instance().getLists();
             wrapper.instance().componentWillMount();
-           
+            wrapper.instance().onSubmit();
            });
 })

@@ -13,6 +13,9 @@ describe('edit item component', () => {
     const props={
         getItem:()=>{},
         componentWillMount:()=>{},
+        getLists:()=>{},
+        onSubmit:()=>{},
+       
         match:{
             params:{}
             }
@@ -32,6 +35,9 @@ describe('edit item component', () => {
     it('should ve the following methods',()=>{
             wrapper.instance().componentWillMount();
             wrapper.instance().getItem();
+            wrapper.instance().getLists();
+            wrapper.instance().onSubmit();
+            
         });
     it('render the two inputs', () =>{
             expect(wrapper.find(<Form.Input id="newamount"/>));
