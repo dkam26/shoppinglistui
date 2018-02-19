@@ -1,0 +1,39 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`app component should render correctly 1`] = `
+<Switch>
+  <Route
+    exact={true}
+    path="/"
+    render={[Function]}
+  />
+  <Route
+    path="/register"
+    render={[Function]}
+  />
+  <Route
+    path="/shoppinglists"
+    render={[Function]}
+  />
+  <Route
+    path="/editshoppinglist/:name"
+    render={[Function]}
+  />
+  <Route
+    path="/addshoppinglist/"
+    render={[Function]}
+  />
+  <Route
+    path="/items/:name"
+    render={[Function]}
+  />
+  <Route
+    path="/editItem/:itemshoppinglist/:product/:amount/:quantity"
+    render={[Function]}
+  />
+  <Route
+    path="/addItem/:name"
+    render={[Function]}
+  />
+</Switch>
+`;

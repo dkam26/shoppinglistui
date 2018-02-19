@@ -22,4 +22,7 @@ describe('app component', () => {
        
        
        });
+    it('should render correctly', () => {  
+        expect(shallowToJson(wrapper)).toMatchSnapshot();
+        });
 })
