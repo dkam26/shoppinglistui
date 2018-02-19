@@ -9,6 +9,7 @@ import LocalStorageMock from '../setupTests';
 import ReactDOM from 'react-dom';
 configure({ adapter: new Adapter() });
 describe('edit shoopinglists component', () => {
+    
      const wrapper =  shallow(<Editshoppinglist />);
     it('should run', () => {
         expect(wrapper.exists(<div></div>)).toBe(true);
@@ -19,9 +20,7 @@ describe('edit shoopinglists component', () => {
         });
         it('should edit shoppinglist',()=>{
             wrapper.find('#EditShoppinglist').simulate('click')
-            expect(toJson(wrapper)).toMatchSnapshot();
-           
-            
+            expect(toJson(wrapper)).toMatchSnapshot();   
         });
     it('renders without crashing', () => {
             const div = document.createElement('div');

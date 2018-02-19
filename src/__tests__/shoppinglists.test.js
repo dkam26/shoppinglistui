@@ -8,6 +8,7 @@ import toJson,{shallowToJson} from 'enzyme-to-json';
 import LocalStorageMock from '../setupTests';
 import Notifications, {notify} from 'react-notify-toast';
 import ReactDOM from 'react-dom';
+import { Button} from 'semantic-ui-react';
 configure({ adapter: new Adapter() });
 describe('shoopinglists component', () => {
     const props={
@@ -24,14 +25,15 @@ describe('shoopinglists component', () => {
     });
     it('should render correctly', () => {
         const output = shallow( <Shoppinglists />);
+        expect(wrapper.length).toEqual(1)
         expect(shallowToJson(output)).toMatchSnapshot();
     });
- it('should add shoppinglist',()=>{
+    it('should add shoppinglist',()=>{
         wrapper.find('#addshoppinglist').simulate('click')
         expect(toJson(wrapper)).toMatchSnapshot();
-       
         
     });
+    
  it('shoppinglists should be a header',()=>{
     expect(wrapper.find('h3').length).toBe(1);
     expect(wrapper.find('h3').at(0).text()).toBe('Your Shoppinglists');
@@ -52,4 +54,20 @@ it('should ve the following methods',()=>{
      wrapper.instance().getItems();
      wrapper.instance().render();
     });
+it('delete button',()=>{
+    expect(wrapper.exists(<Button id ="delete"/>)).toBe(true)
+    expect(toJson(wrapper)).toMatchSnapshot();
+    });
+it('edit button',()=>{
+        expect(wrapper.exists(<Button id ="Editlist"/>)).toBe(true)
+        expect(toJson(wrapper)).toMatchSnapshot();
+        });
+it('content button',()=>{
+            expect(wrapper.exists(<Button id ="content"/>)).toBe(true)
+            expect(toJson(wrapper)).toMatchSnapshot();
+            });
+it('notifications',()=>{
+    expect(wrapper.exists(<Notifications id ="alert"/>)).toBe(true)
+    expect(toJson(wrapper)).toMatchSnapshot();
+})
 })

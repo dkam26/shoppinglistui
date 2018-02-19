@@ -13,6 +13,7 @@ describe('component', () => {
         home:()=>{},
         onSubmit :()=>{},
         render:()=>{},
+       
     }
     const wrapper =  shallow(<Register />);
     it('should run', () => {
@@ -29,6 +30,7 @@ describe('component', () => {
             expect(wrapper.find("#password")).toHaveLength(1);
             expect(wrapper.find("#email")).toHaveLength(1);
             expect(shallowToJson(wrapper)).toMatchSnapshot();
+            
         });
     it('should create user',()=>{
             wrapper.find('#create').simulate('click')

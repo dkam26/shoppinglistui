@@ -34,5 +34,10 @@ describe('edit item component', () => {
     it('should ve the following methods',()=>{
             wrapper.instance().componentWillMount();
            
-           });
+        });
+    it('render the two inputs', () =>{
+            expect(wrapper.find("#newamount")).toHaveLength(1);
+            expect(wrapper.find("#newquantity")).toHaveLength(1);
+            expect(shallowToJson(wrapper)).toMatchSnapshot();
+        });
 })

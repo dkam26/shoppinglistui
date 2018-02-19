@@ -11,7 +11,7 @@ configure({ adapter: new Adapter() });
 describe('items component', () => {
    
     const props={
-        onSubmit :()=>{},
+        constructor :()=>{},
         render:()=>{},
     }
     const wrapper =  shallow(<Items />);
@@ -30,6 +30,5 @@ describe('items component', () => {
             const div = document.createElement('div');
             ReactDOM.render(<Items />, div);
         });  
-   
-      
+  
 })

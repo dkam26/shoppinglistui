@@ -12,7 +12,7 @@ import AddItem from "./components/add.item.component";
 class App extends Component {
   render() {
     return (
-        <Switch>
+        <Switch id='switch' >
           <Route exact path="/" render={props =><Login {...props}/>}/>
           <Route path="/register"  render={props =><Register {...props}/>}/>
           <Route path="/shoppinglists"  render={props =><Shoppinglists {...props}/>}/>

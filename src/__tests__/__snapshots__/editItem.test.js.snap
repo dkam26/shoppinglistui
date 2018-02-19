@@ -1,5 +1,155 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`edit item component render the two inputs 1`] = `
+<div>
+  <Container>
+    <Segment>
+      <Menu
+        secondary={true}
+        style={
+          Object {
+            "backgroundColor": "black",
+          }
+        }
+      >
+        <MenuItem
+          name="SHOPPINGLIST"
+          style={
+            Object {
+              "color": "white",
+            }
+          }
+        />
+        <MenuMenu
+          position="right"
+        >
+          <MenuItem
+            name="logout"
+            style={
+              Object {
+                "color": "white",
+              }
+            }
+          />
+        </MenuMenu>
+      </Menu>
+    </Segment>
+    <Segment>
+      <Menu
+        secondary={true}
+      >
+        <MenuMenu>
+          <MenuMenu
+            position="right"
+          >
+            <MenuItem>
+              <Button
+                as="button"
+                content="Back"
+                icon="left chevron"
+                labelPosition="left"
+                onClick={[Function]}
+              />
+            </MenuItem>
+          </MenuMenu>
+        </MenuMenu>
+        <MenuMenu>
+          <MenuItem>
+            <h3
+              style={
+                Object {
+                  "marginLeft": "308px",
+                }
+              }
+            >
+              Edit  
+               item
+            </h3>
+          </MenuItem>
+        </MenuMenu>
+      </Menu>
+    </Segment>
+    <div
+      className="login-form"
+    >
+      <style>
+        
+          body &gt; div,
+          body &gt; div &gt; div,
+          body &gt; div &gt; div &gt; div.login-form {
+            height: 100%;
+          }
+        
+      </style>
+      <Grid
+        style={
+          Object {
+            "height": "100%",
+          }
+        }
+        textAlign="center"
+        verticalAlign="middle"
+      >
+        <GridColumn
+          style={
+            Object {
+              "maxWidth": 450,
+            }
+          }
+        >
+          <Form
+            as="form"
+            size="large"
+          >
+            <Segment
+              stacked={true}
+            >
+              Quantity: 
+              <FormInput
+                as={[Function]}
+                control={[Function]}
+                fluid={true}
+                id="newquantity"
+                name="newquantity"
+                onChange={[Function]}
+                required={true}
+                type="number"
+                value=""
+              />
+              Amount:
+              <FormInput
+                as={[Function]}
+                control={[Function]}
+                fluid={true}
+                id="newamount"
+                name="newamount"
+                onChange={[Function]}
+                required={true}
+                type="number"
+                value=""
+              />
+              <Button
+                as="button"
+                color="blue"
+                fluid={true}
+                id="editItem"
+                onClick={[Function]}
+                size="large"
+              >
+                Edit Item
+              </Button>
+            </Segment>
+          </Form>
+        </GridColumn>
+      </Grid>
+    </div>
+  </Container>
+  <_class
+    options={Object {}}
+  />
+</div>
+`;
+
 exports[`edit item component should edit item 1`] = `
 <div>
   <Container>
@@ -109,6 +259,7 @@ exports[`edit item component should edit item 1`] = `
                 as={[Function]}
                 control={[Function]}
                 fluid={true}
+                id="newquantity"
                 name="newquantity"
                 onChange={[Function]}
                 required={true}
@@ -120,6 +271,7 @@ exports[`edit item component should edit item 1`] = `
                 as={[Function]}
                 control={[Function]}
                 fluid={true}
+                id="newamount"
                 name="newamount"
                 onChange={[Function]}
                 required={true}
@@ -257,6 +409,7 @@ exports[`edit item component should render correctly 1`] = `
                 as={[Function]}
                 control={[Function]}
                 fluid={true}
+                id="newquantity"
                 name="newquantity"
                 onChange={[Function]}
                 required={true}
@@ -268,6 +421,7 @@ exports[`edit item component should render correctly 1`] = `
                 as={[Function]}
                 control={[Function]}
                 fluid={true}
+                id="newamount"
                 name="newamount"
                 onChange={[Function]}
                 required={true}

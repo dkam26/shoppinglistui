@@ -167,13 +167,13 @@ class Shoppinglists extends React.Component{
                                     <List divided verticalAlign='middle' key={index}>
                                             <List.Item>
                                             <List.Content floated='right'>
-                                                <Button onClick={()=>this.DeleteList(listValue)}>Delete</Button>
+                                                <Button onClick={()=>this.DeleteList(listValue)} id ='delete'>Delete</Button>
                                             </List.Content>
                                             <List.Content floated='right'>
-                                                <Button onClick={()=>this.editList(listValue)}>Editlist</Button>
+                                                <Button onClick={()=>this.editList(listValue)} id ='Editlist'>Editlist</Button>
                                             </List.Content>
                                             <List.Content floated='right'>
-                                                <Button onClick={()=>this.getItems(listValue)}>Content</Button>
+                                                <Button onClick={()=>this.getItems(listValue)} id = 'content'>Content</Button>
                                             </List.Content>
                                             <List.Content>
                                             {listValue}

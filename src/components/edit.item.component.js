@@ -132,17 +132,18 @@ class EditItem extends React.Component{
                     name='newquantity'
                     type='number'
                     value={this.state.newquantity}
-
-                      onChange={e =>this.onChange(e)}
-                      required
+                    id = 'newquantity'
+                    onChange={e =>this.onChange(e)}
+                    required
                     />
                      Amount:<Form.Input
-                      fluid
+                    fluid
                     name='newamount'
                     type='number'
                     value={this.state.newamount}
-                      onChange={e =>this.onChange(e)}
-                      required
+                    onChange={e =>this.onChange(e)}
+                    id= 'newamount'
+                    required
                     />
                     <Button color='blue' fluid size='large' onClick={()=>this.onSubmit()} id='editItem' >Edit Item</Button>
                   </Segment>

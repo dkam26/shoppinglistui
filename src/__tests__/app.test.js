@@ -3,6 +3,7 @@ import { shallow, mount } from 'enzyme';
 import {configure} from 'enzyme';
 import App  from '../App';
 import Enzyme from 'enzyme';
+import {Switch} from 'react-router-dom';
 import Adapter from 'enzyme-adapter-react-15';
 import  toJson,{ shallowToJson } from 'enzyme-to-json';
 import LocalStorageMock from '../setupTests';
@@ -19,10 +20,12 @@ describe('app component', () => {
     });
     it('should ve the following method',()=>{
         wrapper.instance().render();
-       
-       
        });
     it('should render correctly', () => {  
         expect(shallowToJson(wrapper)).toMatchSnapshot();
+        });
+    it('should ve the following method',()=>{
+        expect(wrapper.exists(<Switch id ="switch"/>)).toBe(true)
+        expect(toJson(wrapper)).toMatchSnapshot();
         });
 })

@@ -8,6 +8,9 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 configure({ adapter: new Adapter() });
 describe('login component', () => {
+    const props={
+        render:()=>{}
+    }
     const wrapper =  shallow(<Login/>);
     it('should run', () => {
         expect(wrapper.exists(<div></div>)).toBe(true);
@@ -26,4 +29,8 @@ describe('login component', () => {
             const div = document.createElement('div');
             ReactDOM.render(<Login />, div);
         }); 
+    it('should ve the following methods',()=>{
+            wrapper.instance().render();
+           
+        });
 })

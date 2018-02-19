@@ -52,7 +52,7 @@ class Items extends React.Component{
     }
       //Function queries items for a given shoppinglist
     fetchItems = () => {
-        let shoplist = this.props.match.params.name;
+       
         this.setState({shoplist: shoplist});
         axios.get(URL+'shoppinglist/'+shoplist+'?page_number='+this.state.activePage, {
             headers: {'x-access-token': localStorage.getItem('token'),
@@ -180,7 +180,7 @@ render(){
                                                 <Button onClick={()=>this.DeleteItem(listValue)}>Delete</Button>
                                             </List.Content>
                                             <List.Content floated='right'>
-                                                <Button onClick={()=>this.editItem(listValue)}>EditItem</Button>
+                                                <Button onClick={()=>this.editItem(listValue)} id ='EditItem'>EditItem</Button>
                                             </List.Content>
                                     </List.Item> 
                                 </List>

@@ -124,7 +124,7 @@ class Editshoppinglist extends React.Component{
                 type='text'
                 name='shoppinglist'
                 value={this.state.shoppinglist}
-                  onChange={e =>this.onChange(e)}
+                onChange={e =>this.onChange(e)}
                   required
                 />
                 <Button color='blue' fluid size='large' onClick={()=>this.onSubmit()} id ='EditShoppinglist'>Rename shoppinglist</Button>
