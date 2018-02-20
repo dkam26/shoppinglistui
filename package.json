@@ -40,7 +40,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
+    "test": "react-scripts test --env=jsdom --collectCoverageFrom=src/**/*js --collectCoverageFrom=!src/index.js",
     "eject": "react-scripts eject"
   },
   "devDependencies": {
@@ -52,7 +52,7 @@
     "jest": "^22.0.4",
     "jest-enzyme": "^4.1.1",
     "react-addons-test-utils": "^15.6.2",
-    "react-test-renderer": "^15.6.2",
-    "webpack": "^3.10.0"
+    "react-test-renderer": "^15.6.2"
+    
   }
 }

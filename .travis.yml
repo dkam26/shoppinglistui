@@ -15,4 +15,6 @@ install:
 # command to run tests
 script:
   - npm test -- --coverage
-after_script: "cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js"
+after_script: 
+# "cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js"
+  - COVERALLS_REPO_TOKEN=$venv npm run coveralls
