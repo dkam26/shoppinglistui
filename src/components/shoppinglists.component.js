@@ -17,13 +17,19 @@ class Shoppinglists extends React.Component{
             list:'',
             addshoppinglist:false,
             editshoppinglist:false,
-            userlists:false
+            userlists:false,
+            searchlist:false
         };
         
     }
     //implementation of pagination
     handlePaginationChange = (e, { activePage }) => {
-        this.fetchList();
+        if(this.state.searchlist){
+            this.handleKeyup()
+        }else
+        {
+            this.fetchList();
+        }
         this.setState({ activePage } )}
      //Function to get inputs from the form and set the state
     onChange = (e) => {
@@ -31,8 +37,9 @@ class Shoppinglists extends React.Component{
         this.setState({ word : e.target.value,}) 
     }
     //Function ensures auto search
-    handleKeyup = (e)=>{
-        e.preventDefault();
+    handleKeyup = ()=>{
+       
+        this.setState({ searchlist : true,})
         if(this.state.word){
         axios.get(URL+'search/?q='+this.state.word+'&page_number='+this.state.activePage,
             {headers: {'x-access-token': localStorage.getItem('token'),

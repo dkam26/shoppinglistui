@@ -2,7 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import {URL}  from '../config'
 import Notifications, {notify} from 'react-notify-toast';
-import { Pagination,Button,List,Input, Menu ,Container,Segment,Popup} from 'semantic-ui-react';
+import { List,Pagination,Button,Input, Menu ,Container,Segment,Popup} from 'semantic-ui-react';
 import {Redirect} from 'react-router-dom';
 class Items extends React.Component{
     constructor() {
@@ -21,25 +21,31 @@ class Items extends React.Component{
             product:'',
             amount:'',
             quan:'',
-            deleteGood:false
+            deleteGood:false,
+            searchlist:false
         }
     }
      //implementation of pagination
     handlePaginationChange = (e, { activePage }) => {
-        this.fetchItems();
+        if(this.state.searchlist){
+            this.handleKeyup();
+        } else{
+            this.fetchItems();
+        }
         this.setState({ activePage } )}
      //Function to get inputs from the form and set the state
     onChange = (e) => {
         this.setState({ word : e.target.value,}) 
     }  
      //Function ensures auto search 
-    handleKeyup = (e)=>{
+    handleKeyup = ()=>{
+            this.setState({ searchlist : true,})
             if(this.state.word){
             axios.get(URL+'searchProduct/?q='+this.state.word,
                 {headers: {'x-access-token': localStorage.getItem('token'),
             }}  
             ).then( (response)=> {
-                console.log(response.data['Searched product'])
+                console.log(response)
                 this.setState({items: response.data['Searched product']});
                 this.setState({totalPages:response.data['pages']})
                 })
@@ -210,12 +216,10 @@ render(){
         )
         :<p>No items currently</p>
     }   
-     <Notifications />
+  <Notifications />
        </Container>
     </div>
     );
 }
 }
 export default Items;
-
-

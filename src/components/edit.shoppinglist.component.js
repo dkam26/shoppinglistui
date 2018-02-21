@@ -27,7 +27,7 @@ class Editshoppinglist extends React.Component{
     }
     //Enables the editing of a shoppinglist name
     onSubmit =() => {
-        
+
         axios.put(URL+'shoppinglists/'+this.state.prevName,
         { newName:this.state.shoppinglist}, 
             {
@@ -35,6 +35,7 @@ class Editshoppinglist extends React.Component{
             }
           })
           .then((response) => {
+           
             let myColor = { background: 'red', text: "#FFFFFF" };
             if(response.data['Error'] === '404')
             {
