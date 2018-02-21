@@ -1,5 +1,6 @@
 [![Build Status](https://travis-ci.org/dkam26/shoppinglistui.svg?branch=develop)](https://travis-ci.org/dkam26/shoppinglistui)
-[![Coverage Status](https://coveralls.io/repos/github/dkam26/shoppinglistui/badge.svg?branch=develop)](https://coveralls.io/github/dkam26/shoppinglistui?branch=develop)<br/>
+[![Coverage Status](https://coveralls.io/repos/github/dkam26/shoppinglistui/badge.svg)](https://coveralls.io/github/dkam26/shoppinglistui)
+<br/>
 A shoppinglist app developed in react js that allows users to create and take note of things they would want to buy.
 
 # ShoppingList
