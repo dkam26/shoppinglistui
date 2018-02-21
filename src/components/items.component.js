@@ -39,9 +39,10 @@ class Items extends React.Component{
     }  
      //Function ensures auto search 
     handleKeyup = ()=>{
+
             this.setState({ searchlist : true,})
             if(this.state.word){
-            axios.get(URL+'searchProduct/?q='+this.state.word,
+            axios.get(URL+'searchProduct/?q='+this.state.word+'&page_number='+this.state.activePage,
                 {headers: {'x-access-token': localStorage.getItem('token'),
             }}  
             ).then( (response)=> {
