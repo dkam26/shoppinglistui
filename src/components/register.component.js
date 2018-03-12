@@ -73,7 +73,7 @@ export class Register extends React.Component{
         >
           <Grid.Column style={{ maxWidth: 450 }}>
             <Header as='h2' color='teal' textAlign='center'>
-            Register
+            Register the user
             </Header>
             <Form size='large'>
               <Segment stacked>
